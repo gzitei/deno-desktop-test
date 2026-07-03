@@ -1,0 +1,70 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: ^2.9
+
+      - name: Build desktop binary
+        run: deno desktop -A main.ts
+
+      - name: List generated files
+        shell: bash
+        run: |
+          echo "=== paw-system-desktop/ contents ==="
+          ls -la paw-system-desktop/
+
+      - name: Archive build output
+        shell: bash
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a paw-system-desktop-windows.zip paw-system-desktop/
+          else
+            tar -czf paw-system-desktop-linux.tar.gz paw-system-desktop/
+          fi
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ runner.os }}
+          path: ${{ runner.os == 'Windows' && 'paw-system-desktop-windows.zip' || 'paw-system-desktop-linux.tar.gz' }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: List artifacts
+        run: find artifacts -type f
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            Automated build from main branch.
+          files: artifacts/**/*
