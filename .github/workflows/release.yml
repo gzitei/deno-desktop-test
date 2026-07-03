@@ -30,9 +30,9 @@ jobs:
         run: |
           APP_NAME="$(basename "$PWD")"
           if [ "${{ runner.os }}" = "Windows" ]; then
-            7z a "${APP_NAME}.zip" "${APP_NAME}/${APP_NAME}.exe"
+            7z a "${APP_NAME}.zip" "${APP_NAME}/"
           else
-            zip -j "${APP_NAME}.zip" "${APP_NAME}/${APP_NAME}" "${APP_NAME}/${APP_NAME}.so"
+            zip -r "${APP_NAME}.zip" "${APP_NAME}/"
           fi
 
       - name: Upload binary artifact
