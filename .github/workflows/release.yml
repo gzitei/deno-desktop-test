@@ -25,26 +25,21 @@ jobs:
       - name: Build desktop binary
         run: deno desktop -A main.ts
 
-      - name: List generated files
-        shell: bash
-        run: |
-          echo "=== paw-system-desktop/ contents ==="
-          ls -la paw-system-desktop/
-
       - name: Archive build output
         shell: bash
         run: |
+          APP_NAME="$(basename "$PWD")"
           if [ "${{ runner.os }}" = "Windows" ]; then
-            7z a paw-system-desktop-windows.zip paw-system-desktop/
+            7z a "${APP_NAME}.zip" "${APP_NAME}/${APP_NAME}.exe"
           else
-            tar -czf paw-system-desktop-linux.tar.gz paw-system-desktop/
+            zip -j "${APP_NAME}.zip" "${APP_NAME}/${APP_NAME}" "${APP_NAME}/${APP_NAME}.so"
           fi
 
       - name: Upload binary artifact
         uses: actions/upload-artifact@v4
         with:
           name: binary-${{ runner.os }}
-          path: ${{ runner.os == 'Windows' && 'paw-system-desktop-windows.zip' || 'paw-system-desktop-linux.tar.gz' }}
+          path: "*.zip"
 
   release:
     needs: build
