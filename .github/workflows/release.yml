@@ -25,6 +25,10 @@ jobs:
       - name: Build desktop binary
         run: deno desktop -A main.ts
 
+      - name: Make binary executable
+        if: runner.os == 'Linux'
+        run: chmod +x "$(basename "$PWD")/$(basename "$PWD")"
+
       - name: Archive build output
         shell: bash
         run: |
