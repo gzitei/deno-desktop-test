@@ -33,16 +33,19 @@ jobs:
         shell: bash
         run: |
           APP_NAME="$(basename "$PWD")"
+          TARGET_OS="$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')"
+          TARGET_ARCH="$(echo "${{ runner.arch }}" | tr '[:upper:]' '[:lower:]')"
+          ZIP_NAME="${APP_NAME}-${TARGET_OS}-${TARGET_ARCH}.zip"
           if [ "${{ runner.os }}" = "Windows" ]; then
-            7z a "${APP_NAME}.zip" "${APP_NAME}/"
+            7z a "${ZIP_NAME}" "${APP_NAME}/"
           else
-            zip -r "${APP_NAME}.zip" "${APP_NAME}/"
+            zip -r "${ZIP_NAME}" "${APP_NAME}/"
           fi
 
       - name: Upload binary artifact
         uses: actions/upload-artifact@v4
         with:
-          name: binary-${{ runner.os }}
+          name: binary-${{ runner.os }}-${{ runner.arch }}
           path: "*.zip"
 
   release:
@@ -66,4 +69,4 @@ jobs:
           name: Release v${{ github.run_number }}
           body: |
             Automated build from main branch.
-          files: artifacts/**/*
+          files: artifacts/**/*.zip
