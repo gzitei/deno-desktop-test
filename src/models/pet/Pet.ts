@@ -1,6 +1,6 @@
-import type { Breed } from '../../../types/Breed.d.ts'
-import type { PetData } from '../../../types/PetData.d.ts'
-import type { Species } from '../../../types/Species.d.ts'
+import type { Breed } from "../../../types/Breed.d.ts"
+import type { PetData } from "../../../types/PetData.d.ts"
+import type { Species } from "../../../types/Species.d.ts"
 
 export default class Pet {
   id: bigint

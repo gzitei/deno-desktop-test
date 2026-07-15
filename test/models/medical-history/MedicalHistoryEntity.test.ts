@@ -1,17 +1,17 @@
-import { describe, it } from 'node:test'
-import MedicalHistoryEntity from '../../../src/models/medical-history/MedicalHistoryEntity.ts'
-import { assertEquals } from '@std/assert/equals'
-import { assert, assertThrows } from '@std/assert'
-import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
+import { describe, it } from "node:test"
+import MedicalHistoryEntity from "../../../src/models/medical-history/MedicalHistoryEntity.ts"
+import { assertEquals } from "@std/assert/equals"
+import { assert, assertThrows } from "@std/assert"
+import InvalidFieldValueException from "../../../exceptions/InvalidFieldValueException.ts"
+import type { MedicalHistoryData } from "../../../types/MedicalHistoryData.ts"
 
-describe('MedicalHistoryEntity test', () => {
-  it('should instantiate medical history entity from all fields', () => {
+describe("MedicalHistoryEntity test", () => {
+  it("should instantiate medical history entity from all fields", () => {
     // given
     const id = 123n
     const petId = 10n
-    const createdAt = Temporal.PlainDateTime.from('2026-07-14 15:23:12')
-    const updatedAt = Temporal.PlainDateTime.from('2026-07-14 15:24:08')
+    const createdAt = Temporal.PlainDateTime.from("2026-07-14 15:23:12")
+    const updatedAt = Temporal.PlainDateTime.from("2026-07-14 15:24:08")
 
     // when
     const entity = new MedicalHistoryEntity({
@@ -27,22 +27,22 @@ describe('MedicalHistoryEntity test', () => {
     assert(
       Temporal.PlainDateTime.compare(
         entity.createdAt!,
-        Temporal.PlainDateTime.from('2026-07-14 15:23:12'),
+        Temporal.PlainDateTime.from("2026-07-14 15:23:12"),
       ) === 0,
     )
     assert(
       Temporal.PlainDateTime.compare(
         entity.updatedAt!,
-        Temporal.PlainDateTime.from('2026-07-14 15:24:08'),
+        Temporal.PlainDateTime.from("2026-07-14 15:24:08"),
       ) === 0,
     )
   })
 
-  it('should require petId', () => {
+  it("should require petId", () => {
     assertThrows(
       () => new MedicalHistoryEntity({} as MedicalHistoryData),
       InvalidFieldValueException,
-      'Field petId is required for MedicalHistory',
+      "Field petId is required for MedicalHistory",
     )
   })
 })

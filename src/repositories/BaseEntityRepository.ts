@@ -1,6 +1,6 @@
-import { DatabaseSync } from 'node:sqlite'
-import type { SQLOutputValue, SQLInputValue } from 'node:sqlite'
-import BaseEntity from '../models/BaseEntity.ts'
+import { DatabaseSync } from "node:sqlite"
+import type { SQLInputValue, SQLOutputValue } from "node:sqlite"
+import BaseEntity from "../models/BaseEntity.ts"
 
 export default abstract class BaseEntityRepository<T extends BaseEntity> {
   protected readonly db: DatabaseSync
@@ -15,7 +15,7 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
     const [keys, values] = this.mapEntityToRow(data)
     const query = this.db.prepare(`
       INSERT INTO ${this.tableName}
-      (${keys.join(', ')}) VALUES (${new Array(keys.length).fill('?').join(', ')});
+      (${keys.join(", ")}) VALUES (${new Array(keys.length).fill("?").join(", ")});
       `)
     const created = query.run(...values)
     const id = created.lastInsertRowid
@@ -32,12 +32,12 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
 
     for (const key of keys) {
       const value = [Temporal.PlainDate, Temporal.PlainDateTime].some(
-        (temporal) =>
-          (data as Record<string, SQLInputValue>)[key] instanceof temporal,
-      )
-        ? (data as Record<string, Temporal.PlainDate | Temporal.PlainDateTime>)
-            [key]!.toZonedDateTime(Temporal.Now.timeZoneId())
-            .toString()
+          (temporal) => (data as Record<string, SQLInputValue>)[key] instanceof temporal,
+        )
+        ? (data as Record<string, Temporal.PlainDate | Temporal.PlainDateTime>)[
+          key
+        ]!.toZonedDateTime(Temporal.Now.timeZoneId())
+          .toString()
         : (data as Record<string, SQLInputValue>)[key]
 
       values.push(value)
@@ -84,10 +84,10 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
     }
     const { id: _, ...body } = data
     const [keys, values] = this.mapEntityToRow(body as Partial<T>)
-    keys.push('updatedAt')
+    keys.push("updatedAt")
     const query = this.db.prepare(`
       UPDATE ${this.tableName}
-      SET ${keys.map((key) => `${key} = ?`).join(', ')}
+      SET ${keys.map((key) => `${key} = ?`).join(", ")}
       WHERE id = ?;
     `)
     const result = query.run(

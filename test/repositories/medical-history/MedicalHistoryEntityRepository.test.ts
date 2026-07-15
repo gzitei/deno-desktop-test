@@ -1,16 +1,16 @@
-import { assert, assertEquals } from '@std/assert'
-import { describe, it, after, before, afterEach, beforeEach } from 'node:test'
-import { DatabaseSync } from 'node:sqlite'
-import { createDummyPet, runMigrations } from '../RepositoryTestHelpers.ts'
-import MedicalHistoryEntityRepository from '../../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts'
-import MedicalHistoryEntity from '../../../src/models/medical-history/MedicalHistoryEntity.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
+import { assert, assertEquals } from "@std/assert"
+import { after, afterEach, before, beforeEach, describe, it } from "node:test"
+import { DatabaseSync } from "node:sqlite"
+import { createDummyPet, runMigrations } from "../RepositoryTestHelpers.ts"
+import MedicalHistoryEntityRepository from "../../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts"
+import MedicalHistoryEntity from "../../../src/models/medical-history/MedicalHistoryEntity.ts"
+import type { MedicalHistoryData } from "../../../types/MedicalHistoryData.ts"
 
-describe('MedicalHistoryEntityRepository test suite', () => {
+describe("MedicalHistoryEntityRepository test suite", () => {
   let db: DatabaseSync
 
   before(async () => {
-    db = new DatabaseSync(':memory:')
+    db = new DatabaseSync(":memory:")
     await runMigrations(db)
   })
 
@@ -26,10 +26,9 @@ describe('MedicalHistoryEntityRepository test suite', () => {
     db.exec(`ROLLBACK;`)
   })
 
-  const getRepo = () =>
-    new MedicalHistoryEntityRepository(db, MedicalHistoryEntity.tableName)
+  const getRepo = () => new MedicalHistoryEntityRepository(db, MedicalHistoryEntity.tableName)
 
-  it('should allow for MedicalHistoryEntity creation', () => {
+  it("should allow for MedicalHistoryEntity creation", () => {
     // given
     const pet = createDummyPet(db)
     const repo = getRepo()
@@ -38,15 +37,15 @@ describe('MedicalHistoryEntityRepository test suite', () => {
     }
 
     // when
-    const start = Temporal.Now.zonedDateTimeISO('UTC').round({
-      smallestUnit: 'seconds',
-      roundingMode: 'floor',
+    const start = Temporal.Now.zonedDateTimeISO("UTC").round({
+      smallestUnit: "seconds",
+      roundingMode: "floor",
     })
     repo.create(data)
     const found = repo.findById(1n)
-    const end = Temporal.Now.zonedDateTimeISO('UTC').round({
-      smallestUnit: 'seconds',
-      roundingMode: 'ceil',
+    const end = Temporal.Now.zonedDateTimeISO("UTC").round({
+      smallestUnit: "seconds",
+      roundingMode: "ceil",
     })
 
     // then

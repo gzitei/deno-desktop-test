@@ -1,8 +1,8 @@
-import TutorEntity from '../../models/tutor/TutorEntity.ts'
-import type { SQLOutputValue, SQLInputValue } from 'node:sqlite'
-import BaseEntityRepository from '../BaseEntityRepository.ts'
-import type { Address } from '../../../types/Address.d.ts'
-import type { TutorData } from '../../../types/TutorData.d.ts'
+import TutorEntity from "../../models/tutor/TutorEntity.ts"
+import type { SQLInputValue, SQLOutputValue } from "node:sqlite"
+import BaseEntityRepository from "../BaseEntityRepository.ts"
+import type { Address } from "../../../types/Address.d.ts"
+import type { TutorData } from "../../../types/TutorData.d.ts"
 
 export default class TutorEntityRepository extends BaseEntityRepository<TutorEntity> {
   override mapEntityToRow(
@@ -13,7 +13,7 @@ export default class TutorEntityRepository extends BaseEntityRepository<TutorEnt
     const entityKeys = Object.keys(entity)
 
     for (const key of entityKeys) {
-      if (key === 'address') {
+      if (key === "address") {
         const addressKeys: string[] = Object.keys(
           entity[key] as Partial<Address>,
         )
@@ -48,9 +48,9 @@ export default class TutorEntityRepository extends BaseEntityRepository<TutorEnt
       const value = row[key]
       if ((ADREES_KEYS as Record<string, true>)[key]) {
         ;(address as Record<string, unknown>)[key] = value!.toString()
-      } else if (key === 'createdAt' || key === 'updatedAt') {
+      } else if (key === "createdAt" || key === "updatedAt") {
         tutorData[key] = Temporal.PlainDateTime.from(value!.toString())
-      } else if (key === 'id') {
+      } else if (key === "id") {
         tutorData[key] = BigInt(value!.toString())
       } else {
         ;(tutorData as Record<string, unknown>)[key] = value!.toString()

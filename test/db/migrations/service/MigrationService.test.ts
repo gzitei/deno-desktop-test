@@ -1,34 +1,34 @@
-import assert from 'node:assert'
-import { assertEquals, AssertionError } from '@std/assert'
-import { join } from '@std/path'
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
-import os from 'node:os'
-import { DatabaseSync } from 'node:sqlite'
-import { after, before, describe, mock, it } from 'node:test'
-import MigrationRepository from '../../../../src/db/migrations/repository/MigrationRepository.ts'
-import MigrationService from '../../../../src/db/migrations/service/MigrationService.ts'
+import assert from "node:assert"
+import { assertEquals, AssertionError } from "@std/assert"
+import { join } from "@std/path"
+import { mkdirSync, rmSync, writeFileSync } from "node:fs"
+import os from "node:os"
+import { DatabaseSync } from "node:sqlite"
+import { after, before, describe, it, mock } from "node:test"
+import MigrationRepository from "../../../../src/db/migrations/repository/MigrationRepository.ts"
+import MigrationService from "../../../../src/db/migrations/service/MigrationService.ts"
 
-describe('MigrationService test suite', () => {
+describe("MigrationService test suite", () => {
   let db: DatabaseSync
   let directory: string
-  const pathParts = [os.tmpdir(), 'paw-system']
+  const pathParts = [os.tmpdir(), "paw-system"]
 
   const createMigrationFile = (title: string, content: string) => {
-    writeFileSync(join(directory, title), content, { encoding: 'utf8' })
+    writeFileSync(join(directory, title), content, { encoding: "utf8" })
   }
 
   const getMigrationService = (): MigrationService => {
-    const repo = new MigrationRepository(db, 'migrations')
+    const repo = new MigrationRepository(db, "migrations")
     return new MigrationService(repo, ...pathParts)
   }
 
   before(() => {
-    db = new DatabaseSync(':memory:')
+    db = new DatabaseSync(":memory:")
     directory = join(pathParts[0], pathParts[1])
     mkdirSync(directory, { recursive: true })
 
     createMigrationFile(
-      'v0001_create_users_table.sql',
+      "v0001_create_users_table.sql",
       `
         PRAGMA foreign_keys = ON;
 
@@ -41,7 +41,7 @@ describe('MigrationService test suite', () => {
     )
 
     createMigrationFile(
-      'v0002_create_posts_table.sql',
+      "v0002_create_posts_table.sql",
       `
         CREATE TABLE IF NOT EXISTS posts (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,7 +53,7 @@ describe('MigrationService test suite', () => {
     )
 
     createMigrationFile(
-      'v0003_insert_users.sql',
+      "v0003_insert_users.sql",
       `
         INSERT INTO users (name, email) VALUES ('Gustavo Zitei Vicente', 'gustavo@example.com');
         INSERT INTO users (name, email) VALUES ('Zé das Couves', 'ze@example.com');
@@ -61,7 +61,7 @@ describe('MigrationService test suite', () => {
     )
 
     createMigrationFile(
-      'v0004_insert_posts.sql',
+      "v0004_insert_posts.sql",
       `
         INSERT INTO posts (userId, title, body) VALUES (1, 'First Blog Post', 'Welcome to my awesome blog!');
       `,
@@ -73,7 +73,7 @@ describe('MigrationService test suite', () => {
     rmSync(directory, { force: true, recursive: true })
   })
 
-  it('should apply migrations', async () => {
+  it("should apply migrations", async () => {
     // given
     const service = getMigrationService()
 
@@ -107,12 +107,12 @@ describe('MigrationService test suite', () => {
     assertEquals(postsRows!.length, 1)
   })
 
-  it('should skip already applied migrations', async () => {
+  it("should skip already applied migrations", async () => {
     // given
     const service = getMigrationService()
     const mocked = mock.method(
       MigrationRepository.prototype,
-      'execute',
+      "execute",
       () => {},
     )
 
@@ -125,11 +125,11 @@ describe('MigrationService test suite', () => {
     mock.reset()
   })
 
-  it('should throw when applied migration content has changed', async () => {
+  it("should throw when applied migration content has changed", async () => {
     // given
     const service = getMigrationService()
     createMigrationFile(
-      'v0004_insert_posts.sql',
+      "v0004_insert_posts.sql",
       `
         INSERT INTO posts (userId, title, body) VALUES (1, 'First Blog Post', 'Welcome to my amazing blog!');
       `,
@@ -140,7 +140,7 @@ describe('MigrationService test suite', () => {
       await service.applyMigrations()
     } catch (e) {
       console.log(e)
-      assertEquals((e as Error).name, 'AssertionError')
+      assertEquals((e as Error).name, "AssertionError")
     }
   })
 })

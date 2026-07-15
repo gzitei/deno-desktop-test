@@ -1,4 +1,4 @@
-import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
+import type { MedicalRecordData } from "../../../types/MedicalRecordData.d.ts"
 
 export default class MedicalRecord {
   id: bigint

@@ -1,20 +1,20 @@
-import { assert, assertEquals } from '@std/assert'
-import { describe, it } from 'node:test'
-import { Species } from '../../../types/Species.d.ts'
-import type { Breed } from '../../../types/Breed.d.ts'
-import Pet from '../../../src/models/pet/Pet.ts'
+import { assert, assertEquals } from "@std/assert"
+import { describe, it } from "node:test"
+import { Species } from "../../../types/Species.d.ts"
+import type { Breed } from "../../../types/Breed.d.ts"
+import Pet from "../../../src/models/pet/Pet.ts"
 
-describe('Pet test', () => {
-  it('should instantiate Pet with all fields', () => {
+describe("Pet test", () => {
+  it("should instantiate Pet with all fields", () => {
     // given
     const id = 999n
-    const name = 'Maria Eduarda'
+    const name = "Maria Eduarda"
     const tutorId = 10n
-    const species: Species = 'Canina'
-    const breed: Breed = 'Shih Tzu'
-    const birthDate = Temporal.PlainDate.from('2013-06-28')
-    const createdAt = Temporal.PlainDateTime.from('2013-08-10 13:52:18')
-    const updatedAt = Temporal.PlainDateTime.from('2026-07-14 09:08:45')
+    const species: Species = "Canina"
+    const breed: Breed = "Shih Tzu"
+    const birthDate = Temporal.PlainDate.from("2013-06-28")
+    const createdAt = Temporal.PlainDateTime.from("2013-08-10 13:52:18")
+    const updatedAt = Temporal.PlainDateTime.from("2026-07-14 09:08:45")
 
     // when
     const pet = new Pet({
@@ -30,28 +30,28 @@ describe('Pet test', () => {
 
     // then
     assertEquals(pet.id, 999n)
-    assertEquals(pet.name, 'Maria Eduarda')
+    assertEquals(pet.name, "Maria Eduarda")
     assertEquals(pet.tutorId, 10n)
-    assertEquals(pet.species, 'Canina')
-    assertEquals(pet.breed, 'Shih Tzu')
+    assertEquals(pet.species, "Canina")
+    assertEquals(pet.breed, "Shih Tzu")
     assertEquals(
       Temporal.PlainDate.compare(
         pet.birthDate,
-        Temporal.PlainDate.from('2013-06-28'),
+        Temporal.PlainDate.from("2013-06-28"),
       ),
       0,
     )
     assertEquals(
       Temporal.PlainDateTime.compare(
         pet.createdAt,
-        Temporal.PlainDateTime.from('2013-08-10 13:52:18'),
+        Temporal.PlainDateTime.from("2013-08-10 13:52:18"),
       ),
       0,
     )
     assertEquals(
       Temporal.PlainDateTime.compare(
         pet.updatedAt,
-        Temporal.PlainDateTime.from('2026-07-14 09:08:45'),
+        Temporal.PlainDateTime.from("2026-07-14 09:08:45"),
       ),
       0,
     )

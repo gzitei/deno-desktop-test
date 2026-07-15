@@ -1,4 +1,4 @@
-import type { Address } from './Address.d.ts'
+import type { Address } from "./Address.d.ts"
 
 export type TutorData = {
   id?: bigint

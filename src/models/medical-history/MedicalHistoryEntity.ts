@@ -1,9 +1,9 @@
-import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
-import BaseEntity from '../BaseEntity.ts'
+import InvalidFieldValueException from "../../../exceptions/InvalidFieldValueException.ts"
+import type { MedicalHistoryData } from "../../../types/MedicalHistoryData.ts"
+import BaseEntity from "../BaseEntity.ts"
 
 export default class MedicalHistoryEntity extends BaseEntity {
-  static override tableName = 'medical_histories'
+  static override tableName = "medical_histories"
 
   petId: bigint
 
@@ -11,7 +11,7 @@ export default class MedicalHistoryEntity extends BaseEntity {
     super(id, createdAt, updatedAt)
     if (petId === null || petId === undefined) {
       throw new InvalidFieldValueException(
-        'Field petId is required for MedicalHistory',
+        "Field petId is required for MedicalHistory",
       )
     }
     this.petId = petId

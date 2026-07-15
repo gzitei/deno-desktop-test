@@ -1,13 +1,13 @@
-import { test, mock } from 'node:test'
-import BaseEntity from '../../src/models/BaseEntity.ts'
-import { assertEquals } from '@std/assert/equals'
+import { mock, test } from "node:test"
+import BaseEntity from "../../src/models/BaseEntity.ts"
+import { assertEquals } from "@std/assert/equals"
 
-test('entity should default to null id and current timestamp for updatedAt and createdAt', () => {
+test("entity should default to null id and current timestamp for updatedAt and createdAt", () => {
   // given
-  const fixedDateTime = Temporal.PlainDateTime.from('2026-12-31 23:59:59')
+  const fixedDateTime = Temporal.PlainDateTime.from("2026-12-31 23:59:59")
   const mockDateTime = mock.method(
     Temporal.Now,
-    'plainDateTimeISO',
+    "plainDateTimeISO",
     () => fixedDateTime,
   )
 
@@ -29,12 +29,12 @@ test('entity should default to null id and current timestamp for updatedAt and c
   }
 
   // when
-  const user = new User('zé', 'ze_das_couves@gmail.com')
+  const user = new User("zé", "ze_das_couves@gmail.com")
 
   // then
   assertEquals(user.id, undefined)
-  assertEquals(user.name, 'zé')
-  assertEquals(user.email, 'ze_das_couves@gmail.com')
+  assertEquals(user.name, "zé")
+  assertEquals(user.email, "ze_das_couves@gmail.com")
   assertEquals(user.createdAt, fixedDateTime)
   assertEquals(user.updatedAt, fixedDateTime)
 

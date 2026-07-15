@@ -1,7 +1,7 @@
-import { resolve, extname } from '@std/path'
-import MigrationEntity from '../model/MigrationEntity.ts'
-import MigrationRepository from '../repository/MigrationRepository.ts'
-import { assertEquals } from '@std/assert/equals'
+import { extname, resolve } from "@std/path"
+import MigrationEntity from "../model/MigrationEntity.ts"
+import MigrationRepository from "../repository/MigrationRepository.ts"
+import { assertEquals } from "@std/assert/equals"
 
 export default class MigrationService {
   protected repository: MigrationRepository
@@ -17,8 +17,8 @@ export default class MigrationService {
     const runMigrations = () => {
       this.repository.createMigrationsTable()
       for (const migration of migrations) {
-        const existingMigration: MigrationEntity | null =
-          this.repository.findMigrationByName(migration.name)
+        const existingMigration: MigrationEntity | null = this.repository
+          .findMigrationByName(migration.name)
         if (existingMigration !== null) {
           assertEquals(migration.hash, existingMigration.hash)
           console.log(
@@ -55,20 +55,20 @@ export default class MigrationService {
   private getSqlFiles(): Array<Deno.DirEntry> {
     const files = [
       ...Deno.readDirSync(this.directoryPath).filter(
-        (file) => extname(file.name) === '.sql',
+        (file) => extname(file.name) === ".sql",
       ),
     ]
     return files.sort((a, b) => a.name.localeCompare(b.name))
   }
 
   private getContent(buffer: Uint8Array<ArrayBuffer>): string {
-    return new TextDecoder('utf-8').decode(buffer)
+    return new TextDecoder("utf-8").decode(buffer)
   }
 
   private async getHash(buffer: Uint8Array<ArrayBuffer>): Promise<string> {
-    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer)
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
     return Array.from(new Uint8Array(hashBuffer))
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('')
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("")
   }
 }

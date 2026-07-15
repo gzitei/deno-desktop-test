@@ -1,10 +1,28 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-net main.ts"
+    "dev": "deno run --watch --allow-all main.ts",
+    "compile": "deno desktop --allow-all -o bin main.ts",
+    "test": "deno test --allow-all",
+    "coverage": "deno test --coverage --allow-all",
+    "check": "deno check",
+    "format": "deno fmt ."
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
     "@std/fs": "jsr:@std/fs@^1.0.24",
     "@std/path": "jsr:@std/path@^1.1.6"
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "deno.desktop",
+      "deno.unstable"
+    ]
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "semiColons": false
   }
 }

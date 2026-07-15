@@ -1,9 +1,9 @@
-import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicalRecordData } from '../../../types/MedicalRecord.d.ts'
-import BaseEntity from '../BaseEntity.ts'
+import InvalidFieldValueException from "../../../exceptions/InvalidFieldValueException.ts"
+import type { MedicalRecordData } from "../../../types/MedicalRecord.d.ts"
+import BaseEntity from "../BaseEntity.ts"
 
 export default class MedicalRecordEntity extends BaseEntity {
-  static override tableName = 'medical_records'
+  static override tableName = "medical_records"
 
   medicalHistoryId: bigint
   date: Temporal.PlainDateTime
@@ -22,9 +22,9 @@ export default class MedicalRecordEntity extends BaseEntity {
     updatedAt,
   }: MedicalRecordData) {
     super(id, createdAt, updatedAt)
-    this.validateFieldValue(medicalHistoryId, 'medicalHistoryId')
+    this.validateFieldValue(medicalHistoryId, "medicalHistoryId")
     this.medicalHistoryId = medicalHistoryId
-    this.validateFieldValue(date, 'date')
+    this.validateFieldValue(date, "date")
     this.date = date
     this.validateFields(symptomatology, anamnesis, diagnostics)
     this.symptomatology = symptomatology
