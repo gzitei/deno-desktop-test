@@ -1,7 +1,7 @@
 import { SQLOutputValue } from 'node:sqlite'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
-import MedicalRecordEntity from '../../entities/medical-records/MedicalRecordEntity.ts'
+import MedicalRecordEntity from '../../entities/medical-record/MedicalRecordEntity.ts'
 
 export default class MedicalRecordEntityRepository
   extends BaseEntityRepository<MedicalRecordEntity> {

@@ -4,11 +4,11 @@ import PetEntityRepository from '../../src/repositories/pet/PetEntityRepository.
 import MigrationRepository from '../../src/db/migrations/repository/MigrationRepository.ts'
 import MigrationService from '../../src/db/migrations/service/MigrationService.ts'
 import MedicalHistoryEntityRepository from '../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts'
-import TutorEntity from '../../src/entities/tutors/TutorEntity.ts'
-import PetEntity from '../../src/entities/pets/PetEntity.ts'
+import TutorEntity from '../../src/entities/tutor/TutorEntity.ts'
+import PetEntity from '../../src/entities/pet/PetEntity.ts'
 import MedicalHistoryEntity from '../../src/entities/medica-history/MedicalHistoryEntity.ts'
 import MedicalRecordEntityRepository from '../../src/repositories/medical-record/MedicalRecordEntityRepository.ts'
-import MedicalRecordEntity from '../../src/entities/medical-records/MedicalRecordEntity.ts'
+import MedicalRecordEntity from '../../src/entities/medical-record/MedicalRecordEntity.ts'
 
 export function createDummyTutor(db: DatabaseSync): TutorEntity {
   const tutorRepo = new TutorEntityRepository(db, TutorEntity.tableName)

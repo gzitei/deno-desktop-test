@@ -1,5 +1,5 @@
 import assert from 'node:assert'
-import { assertEquals, AssertionError } from '@std/assert'
+import { assertEquals } from '@std/assert'
 import { join } from '@std/path'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import os from 'node:os'

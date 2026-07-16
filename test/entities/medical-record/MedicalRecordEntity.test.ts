@@ -3,7 +3,7 @@ import { assertEquals } from '@std/assert/equals'
 import { assert, assertThrows } from '@std/assert'
 import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import MedicalRecordEntity from '../../../src/entities/medical-records/MedicalRecordEntity.ts'
+import MedicalRecordEntity from '../../../src/entities/medical-record/MedicalRecordEntity.ts'
 
 describe('MedicalRecordEntity test', () => {
   it('should instantiate medical history entity from all fields', () => {

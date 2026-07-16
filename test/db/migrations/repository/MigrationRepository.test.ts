@@ -4,7 +4,6 @@ import { assert, assertEquals } from '@std/assert'
 import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import MigrationRepository from '../../../../src/db/migrations/repository/MigrationRepository.ts'
 import MigrationEntity from '../../../../src/db/migrations/model/MigrationEntity.ts'
-import { create } from '@std/fs/unstable-create'
 
 describe('', () => {
   let db: DatabaseSync

@@ -4,7 +4,7 @@ import type { State } from '../../../types/State.d.ts'
 import type { TutorData } from '../../../types/TutorData.d.ts'
 import type { Address } from '../../../types/Address.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import TutorEntity from '../../../src/entities/tutors/TutorEntity.ts'
+import TutorEntity from '../../../src/entities/tutor/TutorEntity.ts'
 
 describe('TutorEntity test', () => {
   it('should instantiate Tutor with all fields', () => {

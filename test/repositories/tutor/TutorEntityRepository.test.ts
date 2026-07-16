@@ -3,7 +3,7 @@ import { DatabaseSync } from 'node:sqlite'
 import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import TutorEntityRepository from '../../../src/repositories/tutor/TutorEntityRepository.ts'
 import { runMigrations } from '../RepositoryTestHelpers.ts'
-import TutorEntity from '../../../src/entities/tutors/TutorEntity.ts'
+import TutorEntity from '../../../src/entities/tutor/TutorEntity.ts'
 
 describe('TutorEntityRepository test suite', () => {
   let db: DatabaseSync

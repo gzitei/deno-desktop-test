@@ -3,7 +3,7 @@ import { describe, it } from 'node:test'
 import { Species } from '../../../types/Species.d.ts'
 import type { Breed } from '../../../types/Breed.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import PetEntity from '../../../src/entities/pets/PetEntity.ts'
+import PetEntity from '../../../src/entities/pet/PetEntity.ts'
 
 describe('PetEntity test', () => {
   it('should instantiate Pet with all fields', () => {

@@ -1,4 +1,4 @@
-import { assert, assertEquals } from '@std/assert'
+import { assertEquals } from '@std/assert'
 import { describe, it } from 'node:test'
 import { Species } from '../../../types/Species.d.ts'
 import type { Breed } from '../../../types/Breed.d.ts'

@@ -1,5 +1,5 @@
 import type { PetData } from '../../../types/PetData.d.ts'
-import PetEntity from '../../entities/pets/PetEntity.ts'
+import PetEntity from '../../entities/pet/PetEntity.ts'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import type { SQLOutputValue } from 'node:sqlite'
 

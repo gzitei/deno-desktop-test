@@ -2,7 +2,7 @@ import type { SQLInputValue, SQLOutputValue } from 'node:sqlite'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import type { Address } from '../../../types/Address.d.ts'
 import type { TutorData } from '../../../types/TutorData.d.ts'
-import TutorEntity from '../../entities/tutors/TutorEntity.ts'
+import TutorEntity from '../../entities/tutor/TutorEntity.ts'
 
 export default class TutorEntityRepository extends BaseEntityRepository<TutorEntity> {
   override mapEntityToRow(

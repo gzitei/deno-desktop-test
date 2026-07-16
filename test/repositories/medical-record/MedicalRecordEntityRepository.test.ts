@@ -4,7 +4,7 @@ import { DatabaseSync } from 'node:sqlite'
 import { createDummyMedicalHistory, runMigrations } from '../RepositoryTestHelpers.ts'
 import MedicalRecordEntityRepository from '../../../src/repositories/medical-record/MedicalRecordEntityRepository.ts'
 import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
-import MedicalRecordEntity from '../../../src/entities/medical-records/MedicalRecordEntity.ts'
+import MedicalRecordEntity from '../../../src/entities/medical-record/MedicalRecordEntity.ts'
 
 describe('MedicalRecordEntityRepository test suite', () => {
   let db: DatabaseSync

@@ -1,6 +1,6 @@
 import type { SQLInputValue } from 'node:sqlite'
 import type { MedicationData } from '../../../types/MedicationData.ts'
-import MedicationEntity from '../../entities/medications/MedicationEntity.ts'
+import MedicationEntity from '../../entities/medication/MedicationEntity.ts'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 
 export default class MedicationEntityRepository extends BaseEntityRepository<MedicationEntity> {

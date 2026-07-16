@@ -1,5 +1,4 @@
 import type { SQLInputValue } from 'node:sqlite'
-import type { MedicationData } from '../../../types/MedicationData.ts'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import VaccinationEntity from '../../entities/vaccination/VaccinationEntity.ts'
 import type { VaccinationData } from '../../../types/VaccinationData.d.ts'

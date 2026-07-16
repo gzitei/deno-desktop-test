@@ -5,7 +5,7 @@ import PetEntityRepository from '../../../src/repositories/pet/PetEntityReposito
 import type { Species } from '../../../types/Species.d.ts'
 import type { Breed } from '../../../types/Breed.d.ts'
 import { createDummyTutor, runMigrations } from '../RepositoryTestHelpers.ts'
-import PetEntity from '../../../src/entities/pets/PetEntity.ts'
+import PetEntity from '../../../src/entities/pet/PetEntity.ts'
 
 describe('PetEntityRepository test suite', () => {
   let db: DatabaseSync

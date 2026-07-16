@@ -2,8 +2,8 @@ import { assert, assertEquals } from '@std/assert'
 import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import { DatabaseSync } from 'node:sqlite'
 import { createDummyMedicalRecord, runMigrations } from '../RepositoryTestHelpers.ts'
-import MedicationEntityRepository from '../../../src/repositories/medications/MedicationEntityRepository.ts'
-import MedicationEntity from '../../../src/entities/medications/MedicationEntity.ts'
+import MedicationEntityRepository from '../../../src/repositories/medication/MedicationEntityRepository.ts'
+import MedicationEntity from '../../../src/entities/medication/MedicationEntity.ts'
 import type { MedicationData } from '../../../types/MedicationData.ts'
 
 describe('MedicationEntityRepository test suite', () => {
