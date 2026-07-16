@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS medications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  petId INTEGER REFERENCES pets (id),
+  medicalRecordId INTEGER REFERENCES medical_records (id),
+  description TEXT NOT NULL,
+  dosage TEXT NOT NULL,
+  quantity TEXT NOT NULL,
+  frequency TEXT NOT NULL DEFAULT 'once',
+  prescription BOOLEAN DEFAULT FALSE,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,5 +1,5 @@
-import type { Breed } from "./Breed.d.ts"
-import type { Species } from "./Species.d.ts"
+import type { Breed } from './Breed.d.ts'
+import type { Species } from './Species.d.ts'
 
 export type PetData = {
   id?: bigint

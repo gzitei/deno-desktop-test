@@ -1,9 +1,9 @@
-import BaseEntity from "../../../models/BaseEntity.ts"
-import type { MigrationData } from "../../../../types/MigrationData.d.ts"
-import InvalidFieldValueException from "../../../../exceptions/InvalidFieldValueException.ts"
+import type { MigrationData } from '../../../../types/MigrationData.d.ts'
+import InvalidFieldValueException from '../../../../exceptions/InvalidFieldValueException.ts'
+import BaseEntity from '../../../entities/BaseEntity.ts'
 
 export default class MigrationEntity extends BaseEntity {
-  static override tableName: string = "migrations"
+  static override tableName: string = 'migrations'
 
   readonly name: string
   readonly content: string

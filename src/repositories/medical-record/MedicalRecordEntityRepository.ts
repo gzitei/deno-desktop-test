@@ -1,7 +1,7 @@
-import { SQLOutputValue } from "node:sqlite"
-import BaseEntityRepository from "../BaseEntityRepository.ts"
-import MedicalRecordEntity from "../../models/medical-record/MedicalRecordEntity.ts"
-import type { MedicalRecordData } from "../../../types/MedicalRecordData.d.ts"
+import { SQLOutputValue } from 'node:sqlite'
+import BaseEntityRepository from '../BaseEntityRepository.ts'
+import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
+import MedicalRecordEntity from '../../entities/medical-records/MedicalRecordEntity.ts'
 
 export default class MedicalRecordEntityRepository
   extends BaseEntityRepository<MedicalRecordEntity> {
@@ -10,9 +10,9 @@ export default class MedicalRecordEntityRepository
     const keys = Object.keys(row) as Array<keyof MedicalRecordEntity>
 
     for (const key of keys) {
-      if (key === "medicalHistoryId" || key === "id") {
+      if (key === 'medicalHistoryId' || key === 'id') {
         body[key] = BigInt(row[key]!.toString())
-      } else if (key === "updatedAt" || key === "createdAt" || key === "date") {
+      } else if (key === 'updatedAt' || key === 'createdAt' || key === 'date') {
         body[key] = Temporal.PlainDateTime.from(row[key]!.toString())
       } else {
         body[key] = row[key]!.toString()

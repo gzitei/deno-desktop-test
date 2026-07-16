@@ -1,11 +1,11 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-all main.ts",
-    "compile": "deno desktop --allow-all -o bin main.ts",
-    "test": "deno test --allow-all",
-    "coverage": "deno test --coverage --allow-all",
-    "check": "deno check",
-    "format": "deno fmt ."
+    "dev": "deno run --watch --allow-all --env-file=.env.dev main.ts",
+    "compile": "deno desktop --allow-all --env-file=.env -o bin main.ts",
+    "test": "deno test --allow-all --env-file=.env.test",
+    "coverage": "deno task test --coverage --clean && deno coverage --threshold=90",
+    "check": "deno check --all",
+    "format": "deno fmt **/*.ts **/*.tsx"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",
@@ -23,6 +23,7 @@
     "useTabs": false,
     "lineWidth": 100,
     "indentWidth": 2,
-    "semiColons": false
+    "semiColons": false,
+    "singleQuote": true
   }
 }

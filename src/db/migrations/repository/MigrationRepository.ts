@@ -1,8 +1,8 @@
-import BaseEntityRepository from "../../../repositories/BaseEntityRepository.ts"
-import MigrationEntity from "../model/MigrationEntity.ts"
-import type { MigrationData } from "../../../../types/MigrationData.d.ts"
-import type { SQLOutputValue } from "node:sqlite"
-import { DatabaseSync } from "node:sqlite"
+import BaseEntityRepository from '../../../repositories/BaseEntityRepository.ts'
+import MigrationEntity from '../model/MigrationEntity.ts'
+import type { MigrationData } from '../../../../types/MigrationData.d.ts'
+import type { SQLOutputValue } from 'node:sqlite'
+import { DatabaseSync } from 'node:sqlite'
 
 export default class MigrationRepository extends BaseEntityRepository<MigrationEntity> {
   constructor(db: DatabaseSync, tableName: string) {
@@ -43,12 +43,12 @@ export default class MigrationRepository extends BaseEntityRepository<MigrationE
     row: Record<string, SQLOutputValue>,
   ): MigrationEntity {
     const migrationData: MigrationData = {
-      id: BigInt(row["id"] as string),
-      name: row["name"]! as string,
-      content: row["content"]! as string,
-      hash: row["hash"]! as string,
-      createdAt: Temporal.PlainDateTime.from(row["createdAt"]!.toString()),
-      updatedAt: Temporal.PlainDateTime.from(row["updatedAt"]!.toString()),
+      id: BigInt(row['id'] as string),
+      name: row['name']! as string,
+      content: row['content']! as string,
+      hash: row['hash']! as string,
+      createdAt: Temporal.PlainDateTime.from(row['createdAt']!.toString()),
+      updatedAt: Temporal.PlainDateTime.from(row['updatedAt']!.toString()),
     }
     return new MigrationEntity(migrationData)
   }

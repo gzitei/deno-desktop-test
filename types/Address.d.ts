@@ -1,4 +1,4 @@
-import type { State } from "./State.d.ts"
+import type { State } from './State.d.ts'
 
 export type Address = {
   street: string

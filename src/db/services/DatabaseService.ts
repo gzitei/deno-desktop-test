@@ -1,5 +1,5 @@
-import { DatabaseSync } from "node:sqlite"
-import * as path from "@std/path"
+import { DatabaseSync } from 'node:sqlite'
+import * as path from '@std/path'
 
 export default class DatabaseService {
   private db: DatabaseSync | null

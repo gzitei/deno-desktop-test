@@ -1,12 +1,10 @@
-import type { MedicalRecordData } from "../../../types/MedicalRecordData.d.ts"
+import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
 
 export default class MedicalRecord {
   id: bigint
   medicalHistoryId: bigint
   date: Temporal.PlainDateTime
-  symptomatology?: string
-  anamnesis?: string
-  diagnostics?: string
+  details: string
   createdAt: Temporal.PlainDateTime
   updatedAt: Temporal.PlainDateTime
 
@@ -14,18 +12,14 @@ export default class MedicalRecord {
     id,
     medicalHistoryId,
     date,
-    symptomatology,
-    anamnesis,
-    diagnostics,
+    details,
     createdAt,
     updatedAt,
   }: MedicalRecordData) {
     this.id = id!
     this.medicalHistoryId = medicalHistoryId
     this.date = date
-    this.symptomatology = symptomatology
-    this.anamnesis = anamnesis
-    this.diagnostics = diagnostics
+    this.details = details
     this.createdAt = createdAt!
     this.updatedAt = updatedAt!
   }

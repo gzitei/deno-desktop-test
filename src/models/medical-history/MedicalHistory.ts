@@ -1,4 +1,4 @@
-import type { MedicalHistoryData } from "../../../types/MedicalHistoryData.ts"
+import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
 
 export default class MedicalHistory {
   id: bigint

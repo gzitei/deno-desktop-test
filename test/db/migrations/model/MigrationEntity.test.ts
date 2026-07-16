@@ -1,12 +1,12 @@
-import { describe, it } from "node:test"
-import MigrationEntity from "../../../../src/db/migrations/model/MigrationEntity.ts"
-import { assert, assertThrows } from "@std/assert"
-import InvalidFieldValueException from "../../../../exceptions/InvalidFieldValueException.ts"
+import { describe, it } from 'node:test'
+import MigrationEntity from '../../../../src/db/migrations/model/MigrationEntity.ts'
+import { assert, assertThrows } from '@std/assert'
+import InvalidFieldValueException from '../../../../exceptions/InvalidFieldValueException.ts'
 
-describe("MigrationEntity test suite", () => {
+describe('MigrationEntity test suite', () => {
   // given
   const id = 100n
-  const name = "v0001_create_users_table.sql"
+  const name = 'v0001_create_users_table.sql'
   const content = `
       CREATE TABLE users IF NOT EXISTS (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,11 +14,11 @@ describe("MigrationEntity test suite", () => {
         email TEXT NOT NULL
       );
     `
-  const hash = "345bea22893d37e9d587d7b6bab516bd458cae14c04548335cbd4dbbb5e0cdb4"
-  const createdAt = Temporal.PlainDateTime.from("2026-07-11T16:25:53")
-  const updatedAt = Temporal.PlainDateTime.from("2026-07-12T11:03:48")
+  const hash = '345bea22893d37e9d587d7b6bab516bd458cae14c04548335cbd4dbbb5e0cdb4'
+  const createdAt = Temporal.PlainDateTime.from('2026-07-11T16:25:53')
+  const updatedAt = Temporal.PlainDateTime.from('2026-07-12T11:03:48')
 
-  it("should instantiate MigrationEntity from all fiels", () => {
+  it('should instantiate MigrationEntity from all fiels', () => {
     // when
     const entity: MigrationEntity = new MigrationEntity({
       id,
@@ -30,7 +30,7 @@ describe("MigrationEntity test suite", () => {
     })
 
     // then
-    assert(entity, "Failed to instantiate MigrationEntity from all fields")
+    assert(entity, 'Failed to instantiate MigrationEntity from all fields')
     assert(entity.id === id)
     assert(entity.name === name)
     assert(entity.content === content)
@@ -39,7 +39,7 @@ describe("MigrationEntity test suite", () => {
     assert(entity.updatedAt!.equals(updatedAt))
   })
 
-  const fields = ["name", "content", "hash"]
+  const fields = ['name', 'content', 'hash']
 
   fields.forEach((field, _) => {
     it(`should throw when instantiated with invalid ${field}`, () => {

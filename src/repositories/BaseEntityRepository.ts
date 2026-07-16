@@ -1,6 +1,6 @@
-import { DatabaseSync } from "node:sqlite"
-import type { SQLInputValue, SQLOutputValue } from "node:sqlite"
-import BaseEntity from "../models/BaseEntity.ts"
+import { DatabaseSync } from 'node:sqlite'
+import type { SQLInputValue, SQLOutputValue } from 'node:sqlite'
+import type BaseEntity from '../entities/BaseEntity.ts'
 
 export default abstract class BaseEntityRepository<T extends BaseEntity> {
   protected readonly db: DatabaseSync
@@ -15,7 +15,7 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
     const [keys, values] = this.mapEntityToRow(data)
     const query = this.db.prepare(`
       INSERT INTO ${this.tableName}
-      (${keys.join(", ")}) VALUES (${new Array(keys.length).fill("?").join(", ")});
+      (${keys.join(', ')}) VALUES (${new Array(keys.length).fill('?').join(', ')});
       `)
     const created = query.run(...values)
     const id = created.lastInsertRowid
@@ -38,7 +38,7 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
           key
         ]!.toZonedDateTime(Temporal.Now.timeZoneId())
           .toString()
-        : (data as Record<string, SQLInputValue>)[key]
+        : (data as Record<string, SQLInputValue>)[key]!.toString()
 
       values.push(value)
     }
@@ -60,8 +60,7 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
 
   listAll(): T[] {
     const query = this.db.prepare(`
-      SELECT *
-      FROM ${this.tableName};
+      SELECT * FROM ${this.tableName};
     `)
     const data = query.all()
     return data.map((row) => Object.freeze(this.mapRowToEntity(row)))
@@ -84,10 +83,10 @@ export default abstract class BaseEntityRepository<T extends BaseEntity> {
     }
     const { id: _, ...body } = data
     const [keys, values] = this.mapEntityToRow(body as Partial<T>)
-    keys.push("updatedAt")
+    keys.push('updatedAt')
     const query = this.db.prepare(`
       UPDATE ${this.tableName}
-      SET ${keys.map((key) => `${key} = ?`).join(", ")}
+      SET ${keys.map((key) => `${key} = ?`).join(', ')}
       WHERE id = ?;
     `)
     const result = query.run(

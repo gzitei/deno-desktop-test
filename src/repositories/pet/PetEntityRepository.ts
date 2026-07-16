@@ -1,7 +1,7 @@
-import type { PetData } from "../../../types/PetData.d.ts"
-import PetEntity from "../../models/pet/PetEntity.ts"
-import BaseEntityRepository from "../BaseEntityRepository.ts"
-import type { SQLOutputValue } from "node:sqlite"
+import type { PetData } from '../../../types/PetData.d.ts'
+import PetEntity from '../../entities/pets/PetEntity.ts'
+import BaseEntityRepository from '../BaseEntityRepository.ts'
+import type { SQLOutputValue } from 'node:sqlite'
 
 export default class PetEntityRepository extends BaseEntityRepository<PetEntity> {
   mapRowToEntity(row: Record<string, SQLOutputValue>): PetEntity {
@@ -10,11 +10,11 @@ export default class PetEntityRepository extends BaseEntityRepository<PetEntity>
 
     for (const key of keys) {
       const value = row[key]
-      if (key === "birthDate") {
+      if (key === 'birthDate') {
         data[key] = Temporal.PlainDate.from(value!.toString())
-      } else if (key === "createdAt" || key === "updatedAt") {
+      } else if (key === 'createdAt' || key === 'updatedAt') {
         data[key] = Temporal.PlainDateTime.from(value!.toString())
-      } else if (key === "id" || key === "tutorId") {
+      } else if (key === 'id' || key === 'tutorId') {
         data[key] = BigInt(value!.toString())
       } else {
         ;(data as Record<string, string>)[key] = value!.toString()

@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS vaccinations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  petId INTEGER REFERENCES pets (id),
+  medicalRecordId INTEGER REFERENCES medical_records (id),
+  description TEXT NOT NULL,
+  manufacturer TEXT NOT NULL,
+  batch TEXT NOT NULL,
+  expirationDate DATE NOT NULL,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

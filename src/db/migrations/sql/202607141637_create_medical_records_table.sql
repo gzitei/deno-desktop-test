@@ -2,9 +2,7 @@ CREATE TABLE IF NOT EXISTS medical_records (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   medicalHistoryId INTEGER REFERENCES medical_histories (id),
   date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  symptomatology TEXT DEFAULT '',
-  anamnesis TEXT DEFAULT '',
-  diagnostics TEXT DEFAULT '',
+  details TEXT NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

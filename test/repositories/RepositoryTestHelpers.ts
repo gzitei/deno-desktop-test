@@ -1,28 +1,30 @@
-import { DatabaseSync } from "node:sqlite"
-import TutorEntity from "../../src/models/tutor/TutorEntity.ts"
-import TutorEntityRepository from "../../src/repositories/tutor/TutorEntityRepository.ts"
-import PetEntity from "../../src/models/pet/PetEntity.ts"
-import PetEntityRepository from "../../src/repositories/pet/PetEntityRepository.ts"
-import MigrationRepository from "../../src/db/migrations/repository/MigrationRepository.ts"
-import MigrationService from "../../src/db/migrations/service/MigrationService.ts"
-import MedicalHistoryEntityRepository from "../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts"
-import MedicalHistoryEntity from "../../src/models/medical-history/MedicalHistoryEntity.ts"
+import { DatabaseSync } from 'node:sqlite'
+import TutorEntityRepository from '../../src/repositories/tutor/TutorEntityRepository.ts'
+import PetEntityRepository from '../../src/repositories/pet/PetEntityRepository.ts'
+import MigrationRepository from '../../src/db/migrations/repository/MigrationRepository.ts'
+import MigrationService from '../../src/db/migrations/service/MigrationService.ts'
+import MedicalHistoryEntityRepository from '../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts'
+import TutorEntity from '../../src/entities/tutors/TutorEntity.ts'
+import PetEntity from '../../src/entities/pets/PetEntity.ts'
+import MedicalHistoryEntity from '../../src/entities/medica-history/MedicalHistoryEntity.ts'
+import MedicalRecordEntityRepository from '../../src/repositories/medical-record/MedicalRecordEntityRepository.ts'
+import MedicalRecordEntity from '../../src/entities/medical-records/MedicalRecordEntity.ts'
 
 export function createDummyTutor(db: DatabaseSync): TutorEntity {
   const tutorRepo = new TutorEntityRepository(db, TutorEntity.tableName)
   return tutorRepo.create({
-    name: "Dummy Tutor",
-    document: "dummy-document",
-    phone: "dummy-phone",
-    email: "dummy@email.com",
+    name: 'Dummy Tutor',
+    document: 'dummy-document',
+    phone: 'dummy-phone',
+    email: 'dummy@email.com',
     address: {
-      street: "dummy street",
-      number: "42",
-      complement: "dummy-apartment",
-      neighborhood: "dummy-neighborhood",
-      city: "dummyland",
-      state: "Piauí",
-      zipCode: "dummy-zip-code",
+      street: 'dummy street',
+      number: '42',
+      complement: 'dummy-apartment',
+      neighborhood: 'dummy-neighborhood',
+      city: 'dummyland',
+      state: 'Piauí',
+      zipCode: 'dummy-zip-code',
     },
   })
 }
@@ -32,10 +34,10 @@ export function createDummyPet(db: DatabaseSync): PetEntity {
   const petRepo = new PetEntityRepository(db, PetEntity.tableName)
   return petRepo.create({
     tutorId: tutor.id,
-    name: "dummy-pet",
-    species: "Felina",
-    breed: "Bulldog Francês",
-    birthDate: Temporal.PlainDate.from("2025-12-31"),
+    name: 'dummy-pet',
+    species: 'Felina',
+    breed: 'Bulldog Francês',
+    birthDate: Temporal.PlainDate.from('2025-12-31'),
   })
 }
 
@@ -50,14 +52,24 @@ export function createDummyMedicalHistory(db: DatabaseSync) {
   })
 }
 
+export function createDummyMedicalRecord(db: DatabaseSync) {
+  const medicaHistory = createDummyMedicalHistory(db)
+  const medicalRecordRepo = new MedicalRecordEntityRepository(db, MedicalRecordEntity.tableName)
+  return medicalRecordRepo.create({
+    medicalHistoryId: medicaHistory.id,
+    date: Temporal.PlainDateTime.from('2026-07-10 16:47:13'),
+    details: 'dummy medical record details',
+  })
+}
+
 export async function runMigrations(db: DatabaseSync) {
-  const migrationRepository = new MigrationRepository(db, "migrations")
+  const migrationRepository = new MigrationRepository(db, 'migrations')
   const migrationService = new MigrationService(
     migrationRepository,
-    "src",
-    "db",
-    "migrations",
-    "sql",
+    'src',
+    'db',
+    'migrations',
+    'sql',
   )
   await migrationService.applyMigrations()
 }

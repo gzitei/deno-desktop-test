@@ -1,9 +1,9 @@
-import { DatabaseSync } from "node:sqlite"
-import type { SQLOutputValue } from "node:sqlite"
-import { after, afterEach, before, beforeEach, describe, it, mock } from "node:test"
-import BaseEntity from "../../src/models/BaseEntity.ts"
-import BaseEntityRepository from "../../src/repositories/BaseEntityRepository.ts"
-import { assert, assertEquals, assertFalse, assertThrows } from "@std/assert"
+import { DatabaseSync } from 'node:sqlite'
+import type { SQLOutputValue } from 'node:sqlite'
+import { after, afterEach, before, beforeEach, describe, it, mock } from 'node:test'
+import BaseEntityRepository from '../../src/repositories/BaseEntityRepository.ts'
+import { assert, assertEquals, assertFalse, assertThrows } from '@std/assert'
+import BaseEntity from '../../src/entities/BaseEntity.ts'
 
 class DummyUserEntity extends BaseEntity {
   name: string
@@ -100,14 +100,14 @@ class DummyShipmentRepository extends BaseEntityRepository<DummyShipmentEntity> 
   }
 }
 
-describe("BaseEntityRepository test suite", () => {
+describe('BaseEntityRepository test suite', () => {
   let db: DatabaseSync
-  const table = "dummy_users"
+  const table = 'dummy_users'
 
   const getRepo = () => new DummyUserRepository(db, table)
 
   before(() => {
-    db = new DatabaseSync(":memory:")
+    db = new DatabaseSync(process.env.SQLITE_DATABASE_FILENAME!)
     db.exec(`
       CREATE TABLE IF NOT EXISTS ${table} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -124,7 +124,7 @@ describe("BaseEntityRepository test suite", () => {
   beforeEach(() => db.exec(`BEGIN;`))
   afterEach(() => db.exec(`ROLLBACK;`))
 
-  it("should be able to instantiate a concrete repository", () => {
+  it('should be able to instantiate a concrete repository', () => {
     // when
     const repo = new DummyUserRepository(db, table)
 
@@ -132,11 +132,11 @@ describe("BaseEntityRepository test suite", () => {
     assert(repo)
   })
 
-  it("should allow for entity creation", () => {
+  it('should allow for entity creation', () => {
     // given
     const repo = getRepo()
-    const name = "Paulo Nobre"
-    const email = "paulo.nobre@palmeiras.com.br"
+    const name = 'Paulo Nobre'
+    const email = 'paulo.nobre@palmeiras.com.br'
     const data = { name, email }
 
     // when
@@ -145,16 +145,16 @@ describe("BaseEntityRepository test suite", () => {
     // then
     assert(created)
     assertEquals(created.id, 1n)
-    assertEquals(created.name, "Paulo Nobre")
-    assertEquals(created.email, "paulo.nobre@palmeiras.com.br")
+    assertEquals(created.name, 'Paulo Nobre')
+    assertEquals(created.email, 'paulo.nobre@palmeiras.com.br')
   })
 
-  it("should be able to retrieve entity by id", () => {
+  it('should be able to retrieve entity by id', () => {
     // given
     const repo = getRepo()
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
 
     // when
@@ -163,20 +163,20 @@ describe("BaseEntityRepository test suite", () => {
     // then
     assert(found)
     assert(Object.isFrozen(found))
-    assertEquals(found.name, "Abel Ferreira")
-    assertEquals(found.email, "abel.ferreira@palmeiras.com.br")
+    assertEquals(found.name, 'Abel Ferreira')
+    assertEquals(found.email, 'abel.ferreira@palmeiras.com.br')
   })
 
-  it("should list all entities", () => {
+  it('should list all entities', () => {
     // given
     const repo = getRepo()
     repo.create({
-      name: "Paulo Nobre",
-      email: "paulo.nobre@palmeiras.com.br",
+      name: 'Paulo Nobre',
+      email: 'paulo.nobre@palmeiras.com.br',
     })
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
 
     // when
@@ -185,24 +185,24 @@ describe("BaseEntityRepository test suite", () => {
     // then
     assertEquals(all.length, 2)
     assertEquals(all[0].id, 1n)
-    assertEquals(all[0].name, "Paulo Nobre")
-    assertEquals(all[0].email, "paulo.nobre@palmeiras.com.br")
+    assertEquals(all[0].name, 'Paulo Nobre')
+    assertEquals(all[0].email, 'paulo.nobre@palmeiras.com.br')
     assertEquals(all[1].id, 2n)
-    assertEquals(all[1].name, "Abel Ferreira")
-    assertEquals(all[1].email, "abel.ferreira@palmeiras.com.br")
+    assertEquals(all[1].name, 'Abel Ferreira')
+    assertEquals(all[1].email, 'abel.ferreira@palmeiras.com.br')
     assert(all.every((obj) => Object.isFrozen(obj)))
   })
 
-  it("should delete entity by id", () => {
+  it('should delete entity by id', () => {
     // given
     const repo = getRepo()
     repo.create({
-      name: "Max Pardalzinho",
-      email: "max.pardalzinho@palmeiras.com.br",
+      name: 'Max Pardalzinho',
+      email: 'max.pardalzinho@palmeiras.com.br',
     })
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
     const all = repo.listAll()
 
@@ -213,18 +213,18 @@ describe("BaseEntityRepository test suite", () => {
     // then
     assertEquals(all.length, 2)
     assertEquals(all[0].id, 1n)
-    assertEquals(all[0].name, "Max Pardalzinho")
-    assertEquals(all[0].email, "max.pardalzinho@palmeiras.com.br")
+    assertEquals(all[0].name, 'Max Pardalzinho')
+    assertEquals(all[0].email, 'max.pardalzinho@palmeiras.com.br')
     assertEquals(all[1].id, 2n)
-    assertEquals(all[1].name, "Abel Ferreira")
-    assertEquals(all[1].email, "abel.ferreira@palmeiras.com.br")
+    assertEquals(all[1].name, 'Abel Ferreira')
+    assertEquals(all[1].email, 'abel.ferreira@palmeiras.com.br')
     assert(isDeleted)
     assert(found)
     assertEquals(found.id, 2n)
     assertThrows(() => repo.findById(1n))
   })
 
-  it("should return false when unable to delete entity", () => {
+  it('should return false when unable to delete entity', () => {
     // given
     const repo = getRepo()
 
@@ -235,85 +235,85 @@ describe("BaseEntityRepository test suite", () => {
     assertFalse(isDeleted)
   })
 
-  it("should update entity by id passing data without id", () => {
+  it('should update entity by id passing data without id', () => {
     // given
-    const fixedDateTime = Temporal.PlainDateTime.from("2026-07-13 09:53:48")
+    const fixedDateTime = Temporal.PlainDateTime.from('2026-07-13 09:53:48')
     const mockDateTime = mock.method(
       Temporal.Now,
-      "plainDateTimeISO",
+      'plainDateTimeISO',
       () => fixedDateTime,
     )
     const repo = getRepo()
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
 
     // when
-    repo.update(1n, { email: "90_minutos_e_muito_tempo@palmeiras.com.br" })
+    repo.update(1n, { email: '90_minutos_e_muito_tempo@palmeiras.com.br' })
     const found = repo.findById(1n)
 
     // then
     assert(found)
     assertEquals(found.id, 1n)
-    assertEquals(found.name, "Abel Ferreira")
-    assertEquals(found.email, "90_minutos_e_muito_tempo@palmeiras.com.br")
+    assertEquals(found.name, 'Abel Ferreira')
+    assertEquals(found.email, '90_minutos_e_muito_tempo@palmeiras.com.br')
     assertEquals(mockDateTime.mock.callCount(), 1)
     assertEquals(found.updatedAt, fixedDateTime)
 
     mock.reset()
   })
 
-  it("should update entity when passed data with same id", () => {
+  it('should update entity when passed data with same id', () => {
     // given
-    const fixedDateTime = Temporal.PlainDateTime.from("2026-07-13 09:53:48")
+    const fixedDateTime = Temporal.PlainDateTime.from('2026-07-13 09:53:48')
     const mockDateTime = mock.method(
       Temporal.Now,
-      "plainDateTimeISO",
+      'plainDateTimeISO',
       () => fixedDateTime,
     )
     const repo = getRepo()
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
 
     // when
     repo.update(1n, {
       id: 1n,
-      email: "melhor.treinador@palmeiras.com.br",
+      email: 'melhor.treinador@palmeiras.com.br',
     })
     const found = repo.findById(1n)
 
     // then
     assert(found)
     assertEquals(found.id, 1n)
-    assertEquals(found.name, "Abel Ferreira")
-    assertEquals(found.email, "melhor.treinador@palmeiras.com.br")
+    assertEquals(found.name, 'Abel Ferreira')
+    assertEquals(found.email, 'melhor.treinador@palmeiras.com.br')
     assertEquals(mockDateTime.mock.callCount(), 1)
     assertEquals(found.updatedAt, fixedDateTime)
 
     mock.reset()
   })
 
-  it("should throw when trying to update non-existing entity", () => {
+  it('should throw when trying to update non-existing entity', () => {
     //given
     const repo = getRepo()
 
     // when & then
     assertThrows(
-      () => repo.update(999n, { name: "Seu Zé" }),
+      () => repo.update(999n, { name: 'Seu Zé' }),
       Error,
       `Unable to update entity id 999 in table ${table}`,
     )
   })
 
-  it("should not allow to update entity with data from other entity id", () => {
+  it('should not allow to update entity with data from other entity id', () => {
     // given
     const repo = getRepo()
     repo.create({
-      name: "Abel Ferreira",
-      email: "abel.ferreira@palmeiras.com.br",
+      name: 'Abel Ferreira',
+      email: 'abel.ferreira@palmeiras.com.br',
     })
 
     // when & then
@@ -321,7 +321,7 @@ describe("BaseEntityRepository test suite", () => {
       () =>
         repo.update(1n, {
           id: 999n,
-          email: "90_minutos_e_muito_tempo@palmeiras.com.br",
+          email: '90_minutos_e_muito_tempo@palmeiras.com.br',
         }),
       Error,
       `Unable to update entity id 1 with data from entity id 999`,
@@ -329,11 +329,11 @@ describe("BaseEntityRepository test suite", () => {
   })
 })
 
-describe("BaseEntityRepository should allow for transactions", () => {
+describe('BaseEntityRepository should allow for transactions', () => {
   let db: DatabaseSync
-  const usersTable = "dummy_users"
-  const ordersTable = "dummy_orders"
-  const shipmentsTable = "dummy_shipments"
+  const usersTable = 'dummy_users'
+  const ordersTable = 'dummy_orders'
+  const shipmentsTable = 'dummy_shipments'
 
   const getRepos = (): [
     DummyUserRepository,
@@ -346,7 +346,7 @@ describe("BaseEntityRepository should allow for transactions", () => {
   ]
 
   before(() => {
-    db = new DatabaseSync(":memory:")
+    db = new DatabaseSync(process.env.SQLITE_DATABASE_FILENAME!)
     db.exec(`
       BEGIN;
 
@@ -404,14 +404,14 @@ describe("BaseEntityRepository should allow for transactions", () => {
     const [userRepo, orderRepo, shipmentRepo] = getRepos()
 
     const user = {
-      name: "Paulo Nobre",
-      email: "paulo@nobre.com.br",
+      name: 'Paulo Nobre',
+      email: 'paulo@nobre.com.br',
     }
 
     const order = {
-      item: "café",
+      item: 'café',
       quantity: 10,
-      date: Temporal.PlainDate.from("2026-07-12"),
+      date: Temporal.PlainDate.from('2026-07-12'),
     }
 
     const shipment = {
@@ -439,17 +439,17 @@ describe("BaseEntityRepository should allow for transactions", () => {
     // then
     assertEquals(users.length, 1)
     const foundUser = users[0]
-    assertEquals(foundUser.name, "Paulo Nobre")
-    assertEquals(foundUser.email, "paulo@nobre.com.br")
+    assertEquals(foundUser.name, 'Paulo Nobre')
+    assertEquals(foundUser.email, 'paulo@nobre.com.br')
     assertEquals(foundUser.id, 1n)
 
     assertEquals(orders.length, 1)
     const foundOrder = orders[0]
     assertEquals(foundOrder.id, 1n)
     assertEquals(foundOrder.userId, foundUser.id)
-    assertEquals(foundOrder.item, "café")
+    assertEquals(foundOrder.item, 'café')
     assertEquals(foundOrder.quantity, 10)
-    assertEquals(foundOrder.date, Temporal.PlainDate.from("2026-07-12"))
+    assertEquals(foundOrder.date, Temporal.PlainDate.from('2026-07-12'))
 
     assertEquals(shipments.length, 1)
     const foundShipment = shipments[0]
@@ -458,36 +458,36 @@ describe("BaseEntityRepository should allow for transactions", () => {
     assertEquals(foundShipment.price, 15.0)
   })
 
-  it("should rollback on error", () => {
+  it('should rollback on error', () => {
     // given
     const [userRepo, orderRepo, shipmentRepo] = getRepos()
 
     const users = [
       {
-        name: "Paulo Nobre",
-        email: "paulo@nobre.com",
+        name: 'Paulo Nobre',
+        email: 'paulo@nobre.com',
       },
       {
-        name: "Abel Ferreira",
-        email: "abel@ferreira.com",
+        name: 'Abel Ferreira',
+        email: 'abel@ferreira.com',
       },
       {
-        name: "Outro Paulo Nobre",
-        email: "paulo@nobre.com",
+        name: 'Outro Paulo Nobre',
+        email: 'paulo@nobre.com',
       },
     ]
 
     const orders = [
       {
-        item: "cerveja",
+        item: 'cerveja',
         quantity: 30,
       },
       {
-        item: "cachaça",
+        item: 'cachaça',
         quantity: 10,
       },
       {
-        item: "café",
+        item: 'café',
         quantity: 15,
       },
     ]
@@ -519,7 +519,7 @@ describe("BaseEntityRepository should allow for transactions", () => {
     assertThrows(
       () => userRepo.transaction(execute),
       Error,
-      "UNIQUE constraint failed: dummy_users.email",
+      'UNIQUE constraint failed: dummy_users.email',
     )
     const allUsers = userRepo.listAll()
     const allOrders = orderRepo.listAll()

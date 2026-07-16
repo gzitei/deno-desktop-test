@@ -1,5 +1,5 @@
-import type { Address } from "../../../types/Address.d.ts"
-import { TutorData } from "../../../types/TutorData.d.ts"
+import type { Address } from '../../../types/Address.d.ts'
+import { TutorData } from '../../../types/TutorData.d.ts'
 
 export default class Tutor {
   id: bigint
