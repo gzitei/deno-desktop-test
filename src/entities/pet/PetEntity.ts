@@ -1,7 +1,7 @@
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { Breed } from '../../../types/Breed.d.ts'
-import type { PetData } from '../../../types/PetData.d.ts'
-import type { Species } from '../../../types/Species.d.ts'
+import type { Breed } from '../../../types/entities/pet/Breed.d.ts'
+import type { PetEntityData } from '../../../types/entities/pet/PetEntityData.d.ts'
+import type { Species } from '../../../types/entities/pet/Species.d.ts'
 import BaseEntity from '../BaseEntity.ts'
 import { BREEDS } from './Breeds.ts'
 import { SPECIES } from './Species.ts'
@@ -23,7 +23,7 @@ export default class PetEntity extends BaseEntity {
     birthDate,
     createdAt,
     updatedAt,
-  }: PetData) {
+  }: PetEntityData) {
     super(id, createdAt, updatedAt)
     this.validateFieldValue(tutorId, 'tutorId')
     this.tutorId = tutorId

@@ -1,9 +1,9 @@
 import { describe, it } from 'node:test'
 import { assertEquals } from '@std/assert/equals'
 import { assert, assertThrows } from '@std/assert'
-import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
 import MedicalRecordEntity from '../../../src/entities/medical-record/MedicalRecordEntity.ts'
+import type { MedicalRecordEntityData } from '../../../types/entities/medical-record/MedicalRecordEntityData.d.ts'
 
 describe('MedicalRecordEntity test', () => {
   it('should instantiate medical history entity from all fields', () => {
@@ -62,7 +62,7 @@ describe('MedicalRecordEntity test', () => {
         new MedicalRecordEntity({
           ...data,
           medicalHistoryId: null as unknown as bigint,
-        } as MedicalRecordData),
+        } as MedicalRecordEntityData),
       InvalidFieldValueException,
       `Invalid value provided for medicalHistoryId: 'null'`,
     )
@@ -72,7 +72,7 @@ describe('MedicalRecordEntity test', () => {
         new MedicalRecordEntity({
           ...data,
           medicalHistoryId: undefined as unknown as bigint,
-        } as MedicalRecordData),
+        } as MedicalRecordEntityData),
       InvalidFieldValueException,
       `Invalid value provided for medicalHistoryId: 'undefined'`,
     )
@@ -88,7 +88,7 @@ describe('MedicalRecordEntity test', () => {
         new MedicalRecordEntity({
           ...data,
           details: null as unknown as string,
-        } as MedicalRecordData),
+        } as MedicalRecordEntityData),
       InvalidFieldValueException,
       `Invalid value provided for details: 'null'`,
     )
@@ -98,19 +98,19 @@ describe('MedicalRecordEntity test', () => {
         new MedicalRecordEntity({
           ...data,
           details: undefined as unknown as string,
-        } as MedicalRecordData),
+        } as MedicalRecordEntityData),
       InvalidFieldValueException,
       `Invalid value provided for details: 'undefined'`,
     )
 
     assertThrows(
-      () => new MedicalRecordEntity({ ...data, details: '   ' } as MedicalRecordData),
+      () => new MedicalRecordEntity({ ...data, details: '   ' } as MedicalRecordEntityData),
       InvalidFieldValueException,
       `Invalid value provided for details: '   '`,
     )
   })
 
-  const getData = (): MedicalRecordData => ({
+  const getData = (): MedicalRecordEntityData => ({
     id: 1n,
     medicalHistoryId: 10n,
     date: Temporal.Now.plainDateTimeISO(),

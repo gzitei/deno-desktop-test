@@ -1,6 +1,6 @@
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { Address } from '../../../types/Address.d.ts'
-import { TutorData } from '../../../types/TutorData.d.ts'
+import type { Address } from '../../../types/entities/tutor/Address.d.ts'
+import { TutorEntityData } from '../../../types/entities//tutor/TutorEntityData.d.ts'
 import BaseEntity from '../BaseEntity.ts'
 
 export default class TutorEntity extends BaseEntity {
@@ -20,7 +20,7 @@ export default class TutorEntity extends BaseEntity {
     address,
     createdAt,
     updatedAt,
-  }: TutorData) {
+  }: TutorEntityData) {
     super(id, createdAt, updatedAt)
     this.id = id
     this.validateFieldValue(name, 'name')

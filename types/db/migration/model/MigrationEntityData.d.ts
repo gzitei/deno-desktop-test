@@ -1,4 +1,4 @@
-export type MigrationData = {
+export type MigrationEntityData = {
   id: bigint
   name: string
   content: string

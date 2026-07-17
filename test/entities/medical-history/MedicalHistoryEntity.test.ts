@@ -2,8 +2,8 @@ import { describe, it } from 'node:test'
 import { assertEquals } from '@std/assert/equals'
 import { assert, assertThrows } from '@std/assert'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
 import MedicalHistoryEntity from '../../../src/entities/medica-history/MedicalHistoryEntity.ts'
+import type { MedicalHistoryEntityData } from '../../../types/entities/medical-history/MedicalHistoryEntityData.ts'
 
 describe('MedicalHistoryEntity test', () => {
   it('should instantiate medical history entity from all fields', () => {
@@ -40,7 +40,7 @@ describe('MedicalHistoryEntity test', () => {
 
   it('should require petId', () => {
     assertThrows(
-      () => new MedicalHistoryEntity({} as MedicalHistoryData),
+      () => new MedicalHistoryEntity({} as MedicalHistoryEntityData),
       InvalidFieldValueException,
       'Field petId is required for MedicalHistory',
     )

@@ -1,8 +1,8 @@
 import { assert, assertEquals, assertThrows } from '@std/assert'
 import { describe, it } from 'node:test'
-import type { State } from '../../../types/State.d.ts'
-import type { TutorData } from '../../../types/TutorData.d.ts'
-import type { Address } from '../../../types/Address.d.ts'
+import type { State } from '../../../types/entities/tutor/State.d.ts'
+import type { TutorEntityData } from '../../../types/entities/tutor/TutorEntityData.d.ts'
+import type { Address } from '../../../types/entities/tutor/Address.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
 import TutorEntity from '../../../src/entities/tutor/TutorEntity.ts'
 
@@ -82,7 +82,7 @@ describe('TutorEntity test', () => {
         zipCode: 'zip-code',
       }
 
-      const data: TutorData = {
+      const data: TutorEntityData = {
         id: 1n,
         name: 'pessoa da silva',
         document: 'documento',

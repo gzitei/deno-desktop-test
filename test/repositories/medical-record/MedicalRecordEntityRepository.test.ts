@@ -3,8 +3,8 @@ import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import { DatabaseSync } from 'node:sqlite'
 import { createDummyMedicalHistory, runMigrations } from '../RepositoryTestHelpers.ts'
 import MedicalRecordEntityRepository from '../../../src/repositories/medical-record/MedicalRecordEntityRepository.ts'
-import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
 import MedicalRecordEntity from '../../../src/entities/medical-record/MedicalRecordEntity.ts'
+import type { MedicalRecordEntityData } from '../../../types/entities/medical-record/MedicalRecordEntityData.d.ts'
 
 describe('MedicalRecordEntityRepository test suite', () => {
   let db: DatabaseSync
@@ -40,7 +40,7 @@ describe('MedicalRecordEntityRepository test suite', () => {
       smallestUnit: 'seconds',
       roundingMode: 'floor',
     })
-    const found = repo.create(data as MedicalRecordData)
+    const found = repo.create(data as MedicalRecordEntityData)
     const end = Temporal.Now.zonedDateTimeISO('UTC').round({
       smallestUnit: 'seconds',
       roundingMode: 'ceil',
@@ -63,7 +63,7 @@ describe('MedicalRecordEntityRepository test suite', () => {
     assert(Temporal.PlainDateTime.compare(end, found.updatedAt!) >= 0)
   })
 
-  const getData = (): Partial<MedicalRecordData> => ({
+  const getData = (): Partial<MedicalRecordEntityData> => ({
     id: 1n,
     date: Temporal.PlainDateTime.from('2026-04-27 16:47:13'),
     details: 'febre',

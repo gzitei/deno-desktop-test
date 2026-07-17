@@ -1,4 +1,4 @@
-import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
+import type { MedicalRecordEntityData } from '../../../types/entities/medical-record/MedicalRecordEntityData.d.ts'
 
 export default class MedicalRecord {
   id: bigint
@@ -15,7 +15,7 @@ export default class MedicalRecord {
     details,
     createdAt,
     updatedAt,
-  }: MedicalRecordData) {
+  }: MedicalRecordEntityData) {
     this.id = id!
     this.medicalHistoryId = medicalHistoryId
     this.date = date

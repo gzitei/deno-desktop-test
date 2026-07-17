@@ -1,7 +1,7 @@
 import { assert, assertEquals } from '@std/assert'
 import { describe, it } from 'node:test'
 import Tutor from '../../../src/models/tutor/Tutor.ts'
-import type { State } from '../../../types/State.d.ts'
+import type { State } from '../../../types/entities/tutor/State.d.ts'
 
 describe('Tutor test', () => {
   it('should instantiate Tutor with all fields', () => {

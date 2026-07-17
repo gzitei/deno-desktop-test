@@ -1,5 +1,5 @@
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicationData } from '../../../types/MedicationData.ts'
+import type { MedicationEntityData } from '../../../types/entities/medication/MedicationEntityData.ts'
 import BaseEntity from '../BaseEntity.ts'
 
 export default class MedicationEntity extends BaseEntity {
@@ -24,7 +24,7 @@ export default class MedicationEntity extends BaseEntity {
     prescription,
     createdAt,
     updatedAt,
-  }: MedicationData) {
+  }: MedicationEntityData) {
     super(id, createdAt, updatedAt)
     this.validateFieldValue(petId, 'petId')
     this.petId = petId

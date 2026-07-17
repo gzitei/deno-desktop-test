@@ -1,11 +1,11 @@
 import type { SQLInputValue } from 'node:sqlite'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import VaccinationEntity from '../../entities/vaccination/VaccinationEntity.ts'
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 
 export default class VaccinationEntityRepository extends BaseEntityRepository<VaccinationEntity> {
   mapRowToEntity(row: Record<string, SQLInputValue>): VaccinationEntity {
-    const data: Partial<VaccinationData> = {}
+    const data: Partial<VaccinationEntityData> = {}
     const keys = Object.keys(row) as Array<keyof Partial<VaccinationEntity>>
     for (const key of keys) {
       const value = row[key]!
@@ -24,6 +24,6 @@ export default class VaccinationEntityRepository extends BaseEntityRepository<Va
       }
     }
 
-    return new VaccinationEntity(data as VaccinationData)
+    return new VaccinationEntity(data as VaccinationEntityData)
   }
 }

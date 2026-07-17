@@ -1,16 +1,17 @@
 CREATE TABLE IF NOT EXISTS tutors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  document TEXT NOT NULL UNIQUE,
+  document TEXT DEFAULT '',
   phone TEXT NOT NULL,
-  email TEXT NOT NULL,
+  email TEXT DEFAULT '',
   street TEXT NOT NULL,
-  number TEXT,
-  complement TEXT,
+  number TEXT DEFAULT '',
+  complement TEXT DEFAULT '',
   neighborhood TEXT NOT NULL,
   city TEXT NOT NULL,
   state TEXT NOT NULL,
   zipCode TEXT NOT NULL,
+  debt INTEGER DEFAULT 0,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

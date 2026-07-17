@@ -1,12 +1,12 @@
 import { SQLOutputValue } from 'node:sqlite'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
-import type { MedicalRecordData } from '../../../types/MedicalRecordData.d.ts'
 import MedicalRecordEntity from '../../entities/medical-record/MedicalRecordEntity.ts'
+import type { MedicalRecordEntityData } from '../../../types/entities/medical-record/MedicalRecordEntityData.d.ts'
 
 export default class MedicalRecordEntityRepository
   extends BaseEntityRepository<MedicalRecordEntity> {
   mapRowToEntity(row: Record<string, SQLOutputValue>): MedicalRecordEntity {
-    const body: Partial<MedicalRecordData> = {}
+    const body: Partial<MedicalRecordEntityData> = {}
     const keys = Object.keys(row) as Array<keyof MedicalRecordEntity>
 
     for (const key of keys) {
@@ -19,6 +19,6 @@ export default class MedicalRecordEntityRepository
       }
     }
 
-    return new MedicalRecordEntity(body as MedicalRecordData)
+    return new MedicalRecordEntity(body as MedicalRecordEntityData)
   }
 }

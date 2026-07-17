@@ -1,7 +1,7 @@
 import { assertEquals, assertThrows } from '@std/assert'
 import { describe, it } from 'node:test'
-import { Species } from '../../../types/Species.d.ts'
-import type { Breed } from '../../../types/Breed.d.ts'
+import { Species } from '../../../types/entities/pet/Species.d.ts'
+import type { Breed } from '../../../types/entities/pet/Breed.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
 import PetEntity from '../../../src/entities/pet/PetEntity.ts'
 

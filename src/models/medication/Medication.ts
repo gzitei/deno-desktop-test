@@ -1,4 +1,4 @@
-import type { MedicationData } from '../../../types/MedicationData.ts'
+import type { MedicationEntityData } from '../../../types/entities/medication/MedicationEntityData.ts'
 
 export default class Medication {
   id: bigint
@@ -23,7 +23,7 @@ export default class Medication {
     prescription,
     createdAt,
     updatedAt,
-  }: MedicationData) {
+  }: MedicationEntityData) {
     this.id = id!
     this.petId = petId
     this.medicalRecordId = medicalRecordId

@@ -1,6 +1,6 @@
+import type { MigrationEntityData } from '../../../../types/db/migration/model/MigrationEntityData.d.ts'
 import BaseEntityRepository from '../../../repositories/BaseEntityRepository.ts'
 import MigrationEntity from '../model/MigrationEntity.ts'
-import type { MigrationData } from '../../../../types/MigrationData.d.ts'
 import type { SQLOutputValue } from 'node:sqlite'
 import { DatabaseSync } from 'node:sqlite'
 
@@ -42,7 +42,7 @@ export default class MigrationRepository extends BaseEntityRepository<MigrationE
   protected mapRowToEntity(
     row: Record<string, SQLOutputValue>,
   ): MigrationEntity {
-    const migrationData: MigrationData = {
+    const migrationData: MigrationEntityData = {
       id: BigInt(row['id'] as string),
       name: row['name']! as string,
       content: row['content']! as string,

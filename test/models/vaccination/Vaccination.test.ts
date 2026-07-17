@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test'
 import { assertEquals } from '@std/assert/equals'
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
 import Vaccination from '../../../src/models/vaccination/Vaccination.ts'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 
 describe('Vaccination test', () => {
-  const getData = (): VaccinationData => ({
+  const getData = (): VaccinationEntityData => ({
     id: 13n,
     petId: 123n,
     medicalRecordId: 245n,

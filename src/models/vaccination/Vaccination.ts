@@ -1,4 +1,4 @@
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 
 export default class Vaccination {
   id: bigint
@@ -21,7 +21,7 @@ export default class Vaccination {
     expirationDate,
     createdAt,
     updatedAt,
-  }: VaccinationData) {
+  }: VaccinationEntityData) {
     this.id = id!
     this.petId = petId
     this.medicalRecordId = medicalRecordId

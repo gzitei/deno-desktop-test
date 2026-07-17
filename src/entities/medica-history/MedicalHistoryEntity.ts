@@ -1,5 +1,5 @@
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
+import type { MedicalHistoryEntityData } from '../../../types/entities/medical-history/MedicalHistoryEntityData.ts'
 import BaseEntity from '../BaseEntity.ts'
 
 export default class MedicalHistoryEntity extends BaseEntity {
@@ -7,7 +7,7 @@ export default class MedicalHistoryEntity extends BaseEntity {
 
   petId: bigint
 
-  constructor({ id, petId, createdAt, updatedAt }: MedicalHistoryData) {
+  constructor({ id, petId, createdAt, updatedAt }: MedicalHistoryEntityData) {
     super(id, createdAt, updatedAt)
     if (petId === null || petId === undefined) {
       throw new InvalidFieldValueException(

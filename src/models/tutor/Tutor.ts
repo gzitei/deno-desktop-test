@@ -1,5 +1,5 @@
-import type { Address } from '../../../types/Address.d.ts'
-import { TutorData } from '../../../types/TutorData.d.ts'
+import type { Address } from '../../../types/entities/tutor/Address.d.ts'
+import type { TutorData } from '../../../types/models/tutor/TutorData.d.ts'
 
 export default class Tutor {
   id: bigint
@@ -8,6 +8,7 @@ export default class Tutor {
   phone: string
   email: string
   address: Address
+  debt: number
   createdAt: Temporal.PlainDateTime
   updatedAt: Temporal.PlainDateTime
 

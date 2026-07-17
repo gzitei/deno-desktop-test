@@ -1,4 +1,4 @@
-export type MedicalHistoryData = {
+export type MedicalHistoryEntityData = {
   id?: bigint
   petId: bigint
   createdAt?: Temporal.PlainDateTime

@@ -1,5 +1,5 @@
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 import BaseEntity from '../BaseEntity.ts'
 
 export default class VaccinationEntity extends BaseEntity {
@@ -22,7 +22,7 @@ export default class VaccinationEntity extends BaseEntity {
     expirationDate,
     createdAt,
     updatedAt,
-  }: VaccinationData) {
+  }: VaccinationEntityData) {
     super(id, createdAt, updatedAt)
     this.validateFieldValue(petId, 'petId')
     this.petId = petId

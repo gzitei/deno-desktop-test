@@ -1,5 +1,5 @@
-import type { MigrationData } from '../../../../types/MigrationData.d.ts'
 import InvalidFieldValueException from '../../../../exceptions/InvalidFieldValueException.ts'
+import type { MigrationEntityData } from '../../../../types/db/migration/model/MigrationEntityData.d.ts'
 import BaseEntity from '../../../entities/BaseEntity.ts'
 
 export default class MigrationEntity extends BaseEntity {
@@ -16,7 +16,7 @@ export default class MigrationEntity extends BaseEntity {
     hash,
     createdAt,
     updatedAt,
-  }: MigrationData) {
+  }: MigrationEntityData) {
     super(id, createdAt, updatedAt)
     this.validateField(name, 'Field "name" cannot be null, undefined or empty')
     this.name = name

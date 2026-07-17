@@ -1,6 +1,6 @@
-import type { Breed } from '../../../types/Breed.d.ts'
-import type { PetData } from '../../../types/PetData.d.ts'
-import type { Species } from '../../../types/Species.d.ts'
+import type { Breed } from '../../../types/entities/pet/Breed.d.ts'
+import type { PetEntityData } from '../../../types/entities/pet/PetEntityData.d.ts'
+import type { Species } from '../../../types/entities/pet/Species.d.ts'
 
 export default class Pet {
   id: bigint
@@ -21,7 +21,7 @@ export default class Pet {
     birthDate,
     createdAt,
     updatedAt,
-  }: PetData) {
+  }: PetEntityData) {
     this.id = id!
     this.tutorId = tutorId
     this.name = name

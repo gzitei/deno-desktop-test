@@ -4,7 +4,7 @@ import { DatabaseSync } from 'node:sqlite'
 import { createDummyMedicalRecord, runMigrations } from '../RepositoryTestHelpers.ts'
 import MedicationEntityRepository from '../../../src/repositories/medication/MedicationEntityRepository.ts'
 import MedicationEntity from '../../../src/entities/medication/MedicationEntity.ts'
-import type { MedicationData } from '../../../types/MedicationData.ts'
+import type { MedicationEntityData } from '../../../types/entities/medication/MedicationEntityData.ts'
 
 describe('MedicationEntityRepository test suite', () => {
   let db: DatabaseSync
@@ -40,7 +40,7 @@ describe('MedicationEntityRepository test suite', () => {
       smallestUnit: 'seconds',
       roundingMode: 'floor',
     })
-    const found = repo.create(data as MedicationData)
+    const found = repo.create(data as MedicationEntityData)
     const end = Temporal.Now.zonedDateTimeISO('UTC').round({
       smallestUnit: 'seconds',
       roundingMode: 'ceil',
@@ -61,7 +61,7 @@ describe('MedicationEntityRepository test suite', () => {
     assert(Temporal.PlainDateTime.compare(end, found.updatedAt!) >= 0)
   })
 
-  const getData = (): MedicationData => ({
+  const getData = (): MedicationEntityData => ({
     petId: 1n,
     medicalRecordId: 1n,
     description: 'Terramicina LA',

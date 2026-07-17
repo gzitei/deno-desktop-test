@@ -1,4 +1,4 @@
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
+import type { MedicalHistoryEntityData } from '../../../types/entities/medical-history/MedicalHistoryEntityData.ts'
 
 export default class MedicalHistory {
   id: bigint
@@ -6,7 +6,7 @@ export default class MedicalHistory {
   createdAt: Temporal.PlainDateTime
   updatedAt: Temporal.PlainDateTime
 
-  constructor({ id, petId, createdAt, updatedAt }: MedicalHistoryData) {
+  constructor({ id, petId, createdAt, updatedAt }: MedicalHistoryEntityData) {
     this.id = id!
     this.petId = petId
     this.createdAt = createdAt!

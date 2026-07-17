@@ -1,12 +1,12 @@
 import { describe, it } from 'node:test'
 import { assertEquals } from '@std/assert/equals'
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
 import VaccinationEntity from '../../../src/entities/vaccination/VaccinationEntity.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
 import { assertThrows } from '@std/assert/throws'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 
 describe('VaccinationEntity test', () => {
-  const getData = (): VaccinationData => ({
+  const getData = (): VaccinationEntityData => ({
     id: 13n,
     petId: 123n,
     medicalRecordId: 245n,
@@ -55,7 +55,7 @@ describe('VaccinationEntity test', () => {
     )
   })
 
-  const requiredFields: Array<Partial<keyof VaccinationData>> = [
+  const requiredFields: Array<Partial<keyof VaccinationEntityData>> = [
     'petId',
     'medicalRecordId',
     'description',

@@ -3,8 +3,8 @@ import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import { DatabaseSync } from 'node:sqlite'
 import { createDummyPet, runMigrations } from '../RepositoryTestHelpers.ts'
 import MedicalHistoryEntityRepository from '../../../src/repositories/medical-history/MedicalHistoryEntityRepository.ts'
-import type { MedicalHistoryData } from '../../../types/MedicalHistoryData.ts'
 import MedicalHistoryEntity from '../../../src/entities/medica-history/MedicalHistoryEntity.ts'
+import type { MedicalHistoryEntityData } from '../../../types/entities/medical-history/MedicalHistoryEntityData.ts'
 
 describe('MedicalHistoryEntityRepository test suite', () => {
   let db: DatabaseSync
@@ -32,7 +32,7 @@ describe('MedicalHistoryEntityRepository test suite', () => {
     // given
     const pet = createDummyPet(db)
     const repo = getRepo()
-    const data: MedicalHistoryData = {
+    const data: MedicalHistoryEntityData = {
       petId: pet.id!,
     }
 

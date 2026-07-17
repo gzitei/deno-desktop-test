@@ -1,11 +1,11 @@
-import type { PetData } from '../../../types/PetData.d.ts'
+import type { PetEntityData } from '../../../types/entities/pet/PetEntityData.d.ts'
 import PetEntity from '../../entities/pet/PetEntity.ts'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
 import type { SQLOutputValue } from 'node:sqlite'
 
 export default class PetEntityRepository extends BaseEntityRepository<PetEntity> {
   mapRowToEntity(row: Record<string, SQLOutputValue>): PetEntity {
-    const data: Partial<PetData> = {}
+    const data: Partial<PetEntityData> = {}
     const keys = Object.keys(row) as Array<keyof PetEntity>
 
     for (const key of keys) {
@@ -20,6 +20,6 @@ export default class PetEntityRepository extends BaseEntityRepository<PetEntity>
         ;(data as Record<string, string>)[key] = value!.toString()
       }
     }
-    return new PetEntity(data as PetData)
+    return new PetEntity(data as PetEntityData)
   }
 }

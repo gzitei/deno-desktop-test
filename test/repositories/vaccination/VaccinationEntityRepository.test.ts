@@ -2,9 +2,9 @@ import { assert, assertEquals } from '@std/assert'
 import { after, afterEach, before, beforeEach, describe, it } from 'node:test'
 import { DatabaseSync } from 'node:sqlite'
 import { createDummyMedicalRecord, runMigrations } from '../RepositoryTestHelpers.ts'
-import type { VaccinationData } from '../../../types/VaccinationData.d.ts'
 import VaccinationEntityRepository from '../../../src/repositories/vaccination/VaccinationEntityRepository.ts'
 import VaccinationEntity from '../../../src/entities/vaccination/VaccinationEntity.ts'
+import type { VaccinationEntityData } from '../../../types/entities/vaccination/VaccinationEntityData.d.ts'
 
 describe('VaccinationEntityRepository test suite', () => {
   let db: DatabaseSync
@@ -40,7 +40,7 @@ describe('VaccinationEntityRepository test suite', () => {
       smallestUnit: 'seconds',
       roundingMode: 'floor',
     })
-    const found = repo.create(data as VaccinationData)
+    const found = repo.create(data as VaccinationEntityData)
     const end = Temporal.Now.zonedDateTimeISO('UTC').round({
       smallestUnit: 'seconds',
       roundingMode: 'ceil',
@@ -59,7 +59,7 @@ describe('VaccinationEntityRepository test suite', () => {
     assert(Temporal.PlainDateTime.compare(end, found.updatedAt!) >= 0)
   })
 
-  const getData = (): VaccinationData => ({
+  const getData = (): VaccinationEntityData => ({
     petId: 1n,
     medicalRecordId: 1n,
     description: 'Covid 19',

@@ -1,7 +1,7 @@
 import type { SQLInputValue, SQLOutputValue } from 'node:sqlite'
 import BaseEntityRepository from '../BaseEntityRepository.ts'
-import type { Address } from '../../../types/Address.d.ts'
-import type { TutorData } from '../../../types/TutorData.d.ts'
+import type { Address } from '../../../types/entities//tutor/Address.d.ts'
+import type { TutorEntityData } from '../../../types/entities/tutor/TutorEntityData.d.ts'
 import TutorEntity from '../../entities/tutor/TutorEntity.ts'
 
 export default class TutorEntityRepository extends BaseEntityRepository<TutorEntity> {
@@ -41,7 +41,7 @@ export default class TutorEntityRepository extends BaseEntityRepository<TutorEnt
       zipCode: true,
     }
 
-    const tutorData = {} as TutorData
+    const tutorData = {} as TutorEntityData
     const rowKeys = Object.keys(row)
     const address = {} as Address
     for (const key of rowKeys) {
