@@ -7,8 +7,7 @@ import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueExc
 import TutorEntity from '../../../src/entities/tutor/TutorEntity.ts'
 
 describe('TutorEntity test', () => {
-  it('should instantiate Tutor with all fields', () => {
-    // given
+  const getData = () => {
     const id = 100n
     const name = 'Raphael Veiga'
     const document = '123.456.789-10'
@@ -21,11 +20,10 @@ describe('TutorEntity test', () => {
     const city = 'Cidade dos Bobos'
     const state: State = 'São Paulo'
     const zipCode = '14680-000'
+    const debt = 120
     const createdAt = Temporal.PlainDateTime.from('2026-01-01 16:25:59')
     const updatedAt = Temporal.PlainDateTime.from('2026-07-13 09:49:13')
-
-    // when
-    const tutor = new TutorEntity({
+    return {
       id,
       name,
       document,
@@ -40,9 +38,18 @@ describe('TutorEntity test', () => {
         state,
         zipCode,
       },
+      debt,
       createdAt,
       updatedAt,
-    })
+    }
+  }
+
+  it('should instantiate Tutor with all fields', () => {
+    // given
+    const data: TutorEntityData = getData()
+
+    // when
+    const tutor = new TutorEntity(data)
 
     assert(tutor)
     assertEquals(tutor.id, 100n)
@@ -50,6 +57,39 @@ describe('TutorEntity test', () => {
     assertEquals(tutor.document, '123.456.789-10')
     assertEquals(tutor.phone, '011912345678')
     assertEquals(tutor.email, 'raphael.veiga@palmeiras.com.br')
+    assertEquals(tutor.debt, 120)
+    assertEquals(
+      tutor.createdAt,
+      Temporal.PlainDateTime.from('2026-01-01 16:25:59'),
+    )
+    assertEquals(
+      tutor.updatedAt,
+      Temporal.PlainDateTime.from('2026-07-13 09:49:13'),
+    )
+    assert(tutor.address)
+    assertEquals(tutor.address.street, 'Rua dos Bobos')
+    assertEquals(tutor.address.number, '0')
+    assertEquals(tutor.address.complement, 'Casa Muito Engraçada')
+    assertEquals(tutor.address.neighborhood, 'Bairro do Poeta')
+    assertEquals(tutor.address.city, 'Cidade dos Bobos')
+    assertEquals(tutor.address.state, 'São Paulo')
+    assertEquals(tutor.address.zipCode, '14680-000')
+  })
+
+  it('debt should fallback to 0', () => {
+    // given
+    const data: TutorEntityData = getData()
+
+    // when
+    const tutor = new TutorEntity({ ...data, debt: undefined })
+
+    assert(tutor)
+    assertEquals(tutor.id, 100n)
+    assertEquals(tutor.name, 'Raphael Veiga')
+    assertEquals(tutor.document, '123.456.789-10')
+    assertEquals(tutor.phone, '011912345678')
+    assertEquals(tutor.email, 'raphael.veiga@palmeiras.com.br')
+    assertEquals(tutor.debt, 0)
     assertEquals(
       tutor.createdAt,
       Temporal.PlainDateTime.from('2026-01-01 16:25:59'),
@@ -89,6 +129,7 @@ describe('TutorEntity test', () => {
         phone: 'telefone',
         email: 'email@example.com',
         address: address,
+        debt: 120,
       }
 
       const requiredTutorFields = ['name', 'document', 'phone', 'email']

@@ -13,6 +13,7 @@ export default class PetEntity extends BaseEntity {
   species: Species
   breed: Breed
   birthDate: Temporal.PlainDate
+  active: boolean
 
   constructor({
     id,
@@ -21,6 +22,7 @@ export default class PetEntity extends BaseEntity {
     species,
     breed,
     birthDate,
+    active,
     createdAt,
     updatedAt,
   }: PetEntityData) {
@@ -35,6 +37,7 @@ export default class PetEntity extends BaseEntity {
     this.breed = breed
     this.validateFieldValue(birthDate, 'birthDate')
     this.birthDate = birthDate
+    this.active = active ?? true
   }
 
   private validateFieldValue(value: unknown, fieldName: string) {

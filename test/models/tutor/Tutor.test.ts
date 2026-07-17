@@ -20,6 +20,7 @@ describe('Tutor test', () => {
     const zipCode = '14680-000'
     const createdAt = Temporal.PlainDateTime.from('2026-01-01 16:25:59')
     const updatedAt = Temporal.PlainDateTime.from('2026-07-13 09:49:13')
+    const debt = 120
 
     // when
     const tutor = new Tutor({
@@ -37,6 +38,7 @@ describe('Tutor test', () => {
         state,
         zipCode,
       },
+      debt,
       createdAt,
       updatedAt,
     })
@@ -63,5 +65,6 @@ describe('Tutor test', () => {
     assertEquals(tutor.address.city, 'Cidade dos Bobos')
     assertEquals(tutor.address.state, 'São Paulo')
     assertEquals(tutor.address.zipCode, '14680-000')
+    assertEquals(tutor.debt, 120)
   })
 })

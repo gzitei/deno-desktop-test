@@ -10,6 +10,7 @@ export default class TutorEntity extends BaseEntity {
   phone: string
   email: string
   address: Address
+  debt: number
 
   constructor({
     id,
@@ -18,6 +19,7 @@ export default class TutorEntity extends BaseEntity {
     phone,
     email,
     address,
+    debt,
     createdAt,
     updatedAt,
   }: TutorEntityData) {
@@ -33,6 +35,7 @@ export default class TutorEntity extends BaseEntity {
     this.email = email
     this.validateAddress(address)
     this.address = address
+    this.debt = debt ?? 0
   }
 
   private validateAddress(address: Partial<Address>) {

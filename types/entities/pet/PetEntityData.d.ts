@@ -8,7 +8,7 @@ export type PetEntityData = {
   species: Species
   breed: Breed
   birthDate: Temporal.PlainDate
-  active: boolean
+  active?: boolean
   createdAt?: Temporal.PlainDateTime
   updatedAt?: Temporal.PlainDateTime
 }

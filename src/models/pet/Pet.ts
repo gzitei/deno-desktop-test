@@ -9,6 +9,7 @@ export default class Pet {
   species: Species
   breed: Breed
   birthDate: Temporal.PlainDate
+  active: boolean
   createdAt: Temporal.PlainDateTime
   updatedAt: Temporal.PlainDateTime
 
@@ -19,6 +20,7 @@ export default class Pet {
     species,
     breed,
     birthDate,
+    active,
     createdAt,
     updatedAt,
   }: PetEntityData) {
@@ -28,6 +30,7 @@ export default class Pet {
     this.species = species
     this.breed = breed
     this.birthDate = birthDate
+    this.active = active!
     this.createdAt = createdAt!
     this.updatedAt = updatedAt!
   }

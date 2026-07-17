@@ -4,30 +4,15 @@ import { Species } from '../../../types/entities/pet/Species.d.ts'
 import type { Breed } from '../../../types/entities/pet/Breed.d.ts'
 import InvalidFieldValueException from '../../../exceptions/InvalidFieldValueException.ts'
 import PetEntity from '../../../src/entities/pet/PetEntity.ts'
+import type { PetEntityData } from '../../../types/entities/pet/PetEntityData.d.ts'
 
 describe('PetEntity test', () => {
   it('should instantiate Pet with all fields', () => {
     // given
-    const id = 999n
-    const name = 'Maria Eduarda'
-    const tutorId = 10n
-    const species: Species = 'Canina'
-    const breed: Breed = 'Shih Tzu'
-    const birthDate = Temporal.PlainDate.from('2013-06-28')
-    const createdAt = Temporal.PlainDateTime.from('2013-08-10 13:52:18')
-    const updatedAt = Temporal.PlainDateTime.from('2026-07-14 09:08:45')
+    const data = getData()
 
     // when
-    const pet = new PetEntity({
-      id,
-      name,
-      tutorId,
-      species,
-      breed,
-      birthDate,
-      createdAt,
-      updatedAt,
-    })
+    const pet = new PetEntity(data)
 
     // then
     assertEquals(pet.id, 999n)
@@ -35,6 +20,7 @@ describe('PetEntity test', () => {
     assertEquals(pet.tutorId, 10n)
     assertEquals(pet.species, 'Canina')
     assertEquals(pet.breed, 'Shih Tzu')
+    assertEquals(pet.active, true)
     assertEquals(
       Temporal.PlainDate.compare(
         pet.birthDate,
@@ -75,6 +61,7 @@ describe('PetEntity test', () => {
       const species: Species = 'Canina'
       const breed: Breed = 'Shih Tzu'
       const birthDate = Temporal.PlainDate.from('2013-06-28')
+      const active = true
       const createdAt = Temporal.PlainDateTime.from('2013-08-10 13:52:18')
       const updatedAt = Temporal.PlainDateTime.from('2026-07-14 09:08:45')
 
@@ -86,6 +73,7 @@ describe('PetEntity test', () => {
         species,
         breed,
         birthDate,
+        active,
         createdAt,
         updatedAt,
       }
@@ -167,4 +155,55 @@ describe('PetEntity test', () => {
       'Field birthDate cannot be a future date.',
     )
   })
+
+  it('active should fallback to true', () => {
+    // given
+    const data = getData()
+
+    // when
+    const pet = new PetEntity({ ...data, active: undefined })
+
+    // then
+    assertEquals(pet.id, 999n)
+    assertEquals(pet.name, 'Maria Eduarda')
+    assertEquals(pet.tutorId, 10n)
+    assertEquals(pet.species, 'Canina')
+    assertEquals(pet.breed, 'Shih Tzu')
+    assertEquals(pet.active, true)
+    assertEquals(
+      Temporal.PlainDate.compare(
+        pet.birthDate,
+        Temporal.PlainDate.from('2013-06-28'),
+      ),
+      0,
+    )
+    assertEquals(
+      Temporal.PlainDateTime.compare(
+        pet.createdAt!,
+        Temporal.PlainDateTime.from('2013-08-10 13:52:18'),
+      ),
+      0,
+    )
+    assertEquals(
+      Temporal.PlainDateTime.compare(
+        pet.updatedAt!,
+        Temporal.PlainDateTime.from('2026-07-14 09:08:45'),
+      ),
+      0,
+    )
+  })
+
+  const getData = (): PetEntityData => {
+    return {
+      id: 999n,
+      name: 'Maria Eduarda',
+      tutorId: 10n,
+      species: 'Canina',
+      breed: 'Shih Tzu',
+      birthDate: Temporal.PlainDate.from('2013-06-28'),
+      active: true,
+      createdAt: Temporal.PlainDateTime.from('2013-08-10 13:52:18'),
+      updatedAt: Temporal.PlainDateTime.from('2026-07-14 09:08:45'),
+    }
+  }
 })

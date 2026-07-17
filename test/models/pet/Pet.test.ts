@@ -13,6 +13,7 @@ describe('Pet test', () => {
     const species: Species = 'Canina'
     const breed: Breed = 'Shih Tzu'
     const birthDate = Temporal.PlainDate.from('2013-06-28')
+    const active = true
     const createdAt = Temporal.PlainDateTime.from('2013-08-10 13:52:18')
     const updatedAt = Temporal.PlainDateTime.from('2026-07-14 09:08:45')
 
@@ -24,6 +25,7 @@ describe('Pet test', () => {
       species,
       breed,
       birthDate,
+      active,
       createdAt,
       updatedAt,
     })
@@ -34,6 +36,7 @@ describe('Pet test', () => {
     assertEquals(pet.tutorId, 10n)
     assertEquals(pet.species, 'Canina')
     assertEquals(pet.breed, 'Shih Tzu')
+    assertEquals(pet.active, true)
     assertEquals(
       Temporal.PlainDate.compare(
         pet.birthDate,

@@ -19,6 +19,7 @@ export default class Tutor {
     phone,
     email,
     address,
+    debt,
     createdAt,
     updatedAt,
   }: TutorData) {
@@ -28,6 +29,7 @@ export default class Tutor {
     this.phone = phone
     this.email = email
     this.address = address
+    this.debt = debt
     this.createdAt = createdAt!
     this.updatedAt = updatedAt!
   }

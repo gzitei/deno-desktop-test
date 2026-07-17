@@ -7,7 +7,7 @@ export type TutorEntityData = {
   phone: string
   email: string
   address: Address
-  debt: number
+  debt?: number
   createdAt?: Temporal.PlainDateTime
   updatedAt?: Temporal.PlainDateTime
 }
